@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>The Movie Forum</title>
+	</head>
+
+	<body>
+		<h1>Register</h1>
+		<form th:action="@{/register}" method="POST">
+			<label for="username">Username: </label>
+			<input 
+				type="text" 
+				id="username"
+				name="username"
+				required
+				> <br>
+					
+			<label for="password">Password: </label>
+			<input 
+				type="password" 
+				id="password" 
+				name="password"
+				required> <br>
+			
+			<input type="submit" value="Sumbit"/>
+		</form>
+		
+		<div th:if="${error == 'username already exists'}">Username already exists</div>
+		<div th:if="${error == 'none'}"></div>
+	
+		
+	</body>
+</html>
+

@@ -28,5 +28,4 @@ public class Review {
 	@ManyToOne
 	@JoinColumn(name = "FK_USERNAME")
 	private User username;
-
 }
