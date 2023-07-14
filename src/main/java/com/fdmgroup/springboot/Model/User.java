@@ -3,6 +3,7 @@ package com.fdmgroup.springboot.Model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,16 +25,19 @@ public class User {
 	@JoinTable(
 			name = "USER_FAVOURITES", 
 			joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), 
-			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_NAME"))
+			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_TITLE"))
 	private List<Movie> favourites;
 
 	@ManyToMany
 	@JoinTable(
 			name = "USER_WATCHLIST", 
 			joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), 
-			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_NAME"))
+			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_TITLE"))
 	private List<Movie> watchList;
-
+	
+	@OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+	private List<Movie> moviePostsCreated;
+	
 	@OneToMany(mappedBy = "username")
 	private List<Review> reviews;
 

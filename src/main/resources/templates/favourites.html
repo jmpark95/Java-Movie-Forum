@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>The Movie Forum</title>
+	</head>
+
+	<body>
+		<h1>Welcome to your favourites page, <span th:text="${session.user.username}"></span></h1>
+		<a href="/mainpage">Home</a>
+		
+		<div th:each="favourite : ${favouriteList}">
+			<span th:text="${favourite.title}" /> <span th:text="${favourite.releaseYear}" /> <span th:text="${favourite.rating}" /> <span th:text="${favourite.genre}" /> <span th:text="${favourite.createdBy}" />
+		</div>
+	</body>
+</html>
+
+

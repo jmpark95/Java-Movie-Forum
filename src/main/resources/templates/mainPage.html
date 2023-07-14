@@ -7,6 +7,8 @@
 
 	<body>
 		<h1>Welcome to the main page, <span th:text="${session.user.username}"></span></h1>
+		<a href="/favourites">Your favourites</a>
+		<a href="/watchlist">Your watchlist</a>
 		<a href="/logout">Logout</a>
 		<a href="/addmovie">Add a movie</a>
 		<div th:each="movie : ${movies}">

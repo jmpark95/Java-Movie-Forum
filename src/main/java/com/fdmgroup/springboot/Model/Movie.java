@@ -1,9 +1,13 @@
 package com.fdmgroup.springboot.Model;
 
 import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -22,12 +26,23 @@ public class Movie {
 	@Column(name = "AVERAGE RATING")
 	private int rating;
 	
+	
+	
+	@ManyToMany(mappedBy = "favourites")
+	private List<User> favouritedBy;
+	
+	@ManyToMany(mappedBy = "watchList")
+	private List<User> watchlistedBy;
+	
+	@ManyToOne
+	@JoinColumn(name = "FK_USERNAME")
+	private User createdBy;
+	
+	
 	@OneToMany(mappedBy = "movie")
 	private List<Review> reviews;
 	
-	@ManyToOne
-	//@JoinColumn(name = "CREATEDBY_FK_USERNAME", unique = false)
-	private User createdBy;
+	
 
 	
 	

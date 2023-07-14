@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.springboot.Model.Movie;
+import com.fdmgroup.springboot.Model.User;
 import com.fdmgroup.springboot.Repository.MovieRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class MovieService {
@@ -25,4 +28,8 @@ public class MovieService {
 	public List<Movie> getAllMovies() {
 		return movieRepository.findAll();
 	}
+	
+
 }
+
+

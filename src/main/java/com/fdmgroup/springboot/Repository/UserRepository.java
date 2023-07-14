@@ -6,4 +6,5 @@ import com.fdmgroup.springboot.Model.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 
+
 }
