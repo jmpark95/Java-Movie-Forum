@@ -1,5 +1,7 @@
 package com.fdmgroup.springboot.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +43,14 @@ public class MovieController {
 		}
 
 		return "addmovie";
+	}
+	
+	@GetMapping("/mainpage")
+	public String getMainPage(Model model) {
+		List<Movie> allMovies = movieService.getAllMovies();
+		model.addAttribute("movies", allMovies);
+		
+		return "mainpage";
 	}
 	
 }

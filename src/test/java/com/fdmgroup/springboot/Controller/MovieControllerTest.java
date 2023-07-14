@@ -1,12 +1,16 @@
 package com.fdmgroup.springboot.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -57,6 +61,13 @@ class MovieControllerTest {
 		when(mockMovieService.addMovie(movie)).thenReturn("Success");
 		
 		assertEquals("addmovie", movieController.addMovie(movie, user, mockSession, mockModel));
+	}
+	
+	@Test
+	void GET_main_page() throws Exception {
+		movieController.getMainPage(mockModel);
+		
+		verify(mockMovieService, times(1)).getAllMovies();
 	}
 	
 

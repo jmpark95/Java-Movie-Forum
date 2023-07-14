@@ -9,9 +9,9 @@
 		<h1>Welcome to the main page, <span th:text="${session.user.username}"></span></h1>
 		<a href="/logout">Logout</a>
 		<a href="/addmovie">Add a movie</a>
-		<p>Movie1</p>
-		<p>Movie1</p>
-		<p>Movie1</p>
-		<p>Movie1</p>
+		<div th:each="movie : ${movies}">
+			<span th:text="${movie.title}" /> <span th:text="${movie.releaseYear}" /> <span th:text="${movie.rating}" /> <span th:text="${movie.genre}" /> <span th:text="${movie.createdBy}" />
+		</div>
+	
 	</body>
 </html>
