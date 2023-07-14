@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -21,22 +20,22 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.ui.Model;
-
-import jakarta.servlet.http.HttpSession;
 
 @WebMvcTest(LoginController.class)
 class LoginControllerTest {
 	@Autowired
 	MockMvc mockMvc;
+	
 	@Autowired
 	LoginController loginController;
+	
 	@MockBean
 	UserService userService;
+	
 	@Mock
 	Model mockModel;
+	
 	@Mock
 	MockHttpSession mockSession;
 

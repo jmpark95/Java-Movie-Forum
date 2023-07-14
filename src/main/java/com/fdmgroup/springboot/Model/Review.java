@@ -22,7 +22,7 @@ public class Review {
 	private int rating;
 	
 	@ManyToOne
-	@JoinColumn(name = "FK_MOVIE_ID")
+	@JoinColumn(name = "FK_MOVIE_TITLE")
 	private Movie movie;
 	
 	@ManyToOne
