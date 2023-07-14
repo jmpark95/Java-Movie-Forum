@@ -37,7 +37,7 @@ public class RegisterController {
 			userRepository.save(user);
 			session.setAttribute("user", user);
 			
-			return "redirect:/mainPage";
+			return "redirect:/mainpage";
 		}
 	}
 }

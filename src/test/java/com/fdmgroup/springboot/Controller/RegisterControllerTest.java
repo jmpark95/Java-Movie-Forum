@@ -50,7 +50,7 @@ class RegisterControllerTest {
 		
 		when(userService.getUser(user.getUsername())).thenReturn(null);
 		
-		assertEquals("redirect:/mainPage", registerController.registerUser(user, model, session));
+		assertEquals("redirect:/mainpage", registerController.registerUser(user, model, session));
 	}
 	
 	@Test

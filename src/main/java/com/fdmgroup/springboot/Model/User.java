@@ -21,16 +21,25 @@ public class User {
 	private String password;
 
 	@ManyToMany
-	@JoinTable(name = "USER_FAVOURITES", joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_NAME"))
+	@JoinTable(
+			name = "USER_FAVOURITES", 
+			joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), 
+			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_NAME"))
 	private List<Movie> favourites;
 
 	@ManyToMany
-	@JoinTable(name = "USER_WATCHLIST", joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_NAME"))
+	@JoinTable(
+			name = "USER_WATCHLIST", 
+			joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), 
+			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_NAME"))
 	private List<Movie> watchList;
 
 	@OneToMany(mappedBy = "username")
 	private List<Review> reviews;
+	
+	
 
+	
 	public User() {
 	}
 
