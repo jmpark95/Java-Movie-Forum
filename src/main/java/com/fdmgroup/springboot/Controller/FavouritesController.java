@@ -13,7 +13,7 @@ import com.fdmgroup.springboot.Service.UserService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class UserController {
+public class FavouritesController {
 	@Autowired
 	UserService userService;
 	
@@ -24,4 +24,7 @@ public class UserController {
 		
 		return "favourites";
 	}
+	
+	//add favourites will be a link on each movie detail page. SO come back to this once
+	//individual movie post part has been done
 }

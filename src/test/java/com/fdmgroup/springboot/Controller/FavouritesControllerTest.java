@@ -16,9 +16,9 @@ import org.springframework.ui.Model;
 import com.fdmgroup.springboot.Service.UserService;
 
 @SpringBootTest
-class UserControllerTest {
+class FavouritesControllerTest {
 	@Autowired
-	UserController userController;
+	FavouritesController favouritesController;
 	
 	@MockBean
 	UserService mockUserService;
@@ -34,11 +34,11 @@ class UserControllerTest {
 	
 	@Test
 	void get_users_favourite_movies() throws Exception {
-		userController.getFavouritesByUsername(mockSession, mockModel);
+		favouritesController.getFavouritesByUsername(mockSession, mockModel);
 		
 		verify(mockUserService, times(1)).getFavouritesByUsername(mockSession);
 		
-		assertEquals("favourites", userController.getFavouritesByUsername(mockSession, mockModel));
+		assertEquals("favourites", favouritesController.getFavouritesByUsername(mockSession, mockModel));
 	}
 
 }

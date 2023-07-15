@@ -12,7 +12,7 @@
 		<a href="/logout">Logout</a>
 		<a href="/addmovie">Add a movie</a>
 		<div th:each="movie : ${movies}">
-			<span th:text="${movie.title}" /> <span th:text="${movie.releaseYear}" /> <span th:text="${movie.rating}" /> <span th:text="${movie.genre}" /> <span th:text="${movie.createdBy}" />
+			<a th:href="@{'/movie/' + ${movie.title}}"><span th:text="${movie.title}" /> <span th:text="${movie.releaseYear}" /> <span th:text="${movie.rating}" /> <span th:text="${movie.genre}" /> <span th:text="${movie.createdBy}" /></a>
 		</div>
 	
 	</body>

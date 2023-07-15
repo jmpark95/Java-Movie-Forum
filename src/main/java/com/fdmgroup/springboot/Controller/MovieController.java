@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fdmgroup.springboot.Model.Movie;
@@ -19,6 +20,14 @@ import jakarta.servlet.http.HttpSession;
 public class MovieController {
 	@Autowired
 	MovieService movieService;
+	
+	@GetMapping("/mainpage")
+	public String getMainPage(Model model) {
+		List<Movie> allMovies = movieService.getAllMovies();
+		model.addAttribute("movies", allMovies);
+		
+		return "mainpage";
+	}
 	
 	@GetMapping("/addmovie")
 	public String getAddMoviePage(Model model) {
@@ -45,12 +54,12 @@ public class MovieController {
 		return "addmovie";
 	}
 	
-	@GetMapping("/mainpage")
-	public String getMainPage(Model model) {
-		List<Movie> allMovies = movieService.getAllMovies();
-		model.addAttribute("movies", allMovies);
+	@GetMapping("/movie/{title}")
+	public String getMoviePage(@PathVariable String title, Model model) {
+		Movie result = movieService.getSingleMovie(title);
+		model.addAttribute("movie", result);
 		
-		return "mainpage";
+		return "singlemovie";
 	}
 	
 

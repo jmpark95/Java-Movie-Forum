@@ -1,6 +1,7 @@
 package com.fdmgroup.springboot.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,14 @@ public class MovieService {
 		return movieRepository.findAll();
 	}
 	
+	public Movie getSingleMovie(String title) {
+		Optional<Movie> movie = movieRepository.findById(title);
+		
+		if (movie.isPresent())
+			return movie.get();
+		else
+			return null;
+	}
+	
 
 }
-
-

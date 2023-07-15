@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>The Movie Forum</title>
+	</head>
+
+	<body>
+		<h1>Welcome to the single movie page, <span th:text="${session.user.username}"></span></h1>
+		<a href="/mainpage">Home</a>
+		
+		
+		<div th:object="${movie}">
+			<h3 th:text="*{title}"></h3>
+			<p th:text="*{genre}"></p>
+			<p th:text="*{releaseYear}"></p>
+			<p th:text="*{rating}"></p>
+			<p>Created by <span th:text="*{createdBy}"></span></p>
+		</div>
+		
+		
+		
+		
+	</body>
+</html>
+
+
