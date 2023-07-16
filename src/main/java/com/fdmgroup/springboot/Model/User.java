@@ -82,20 +82,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", favourites=" + favourites + ", watchlist="
-				+ watchlist + "]";
+		return "User [username=" + username + ", password=" + password + "]";
 	}
-	
-	
-	
-	
-
-
-	
-	
-	
-
-
-
 
 }
