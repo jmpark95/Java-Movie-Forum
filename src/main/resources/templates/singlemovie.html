@@ -10,18 +10,18 @@
 		<a href="/mainpage">Home</a>
 		
 		
-		<div th:object="${movie}">
-			<h3 th:text="*{title}"></h3>
-			<p th:text="*{genre}"></p>
-			<p th:text="*{releaseYear}"></p>
-			<p th:text="*{rating}"></p>
-			<p>Created by <span th:text="*{createdBy}"></span></p>
-		</div>
-		
-		
-		
-		
+		<form th:action="@{/favourites}" th:object="${movie}" method="POST">
+		    
+		    
+		    <h3><input type="text" th:field="*{title}" /></h3>
+		    <p><input type="text" th:field="*{genre}" /></p>
+		    <p><input type="number" th:field="*{releaseYear}" /></p>
+		    <p><input type="number" th:field="*{rating}" /></p>
+		    
+			<div>add to favourites</div>
+		    <input type="submit" value="Submit" />
+		</form>
+
 	</body>
 </html>
-
 

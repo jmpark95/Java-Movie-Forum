@@ -37,13 +37,12 @@ public class MovieController {
 	}
 	
 	@PostMapping("/addmovie")
-	public String addMovie(@ModelAttribute Movie movie, User user, HttpSession session, Model model) {		
-		user = (User) session.getAttribute("user");		
-		movie.setCreatedBy(user);
+	public String addMovie(@ModelAttribute Movie movie, Model model) {		
+		//user = (User) session.getAttribute("user");		
 		
-		String result = movieService.addMovie(movie);
+		Movie result = movieService.addMovie(movie);
 		
-		if (result.equals("Success")) {
+		if (result != null) {
 			model.addAttribute("message", "success");	
 			model.addAttribute("movie", new Movie());
 		} else {
@@ -55,12 +54,56 @@ public class MovieController {
 	}
 	
 	@GetMapping("/movie/{title}")
-	public String getMoviePage(@PathVariable String title, Model model) {
-		Movie result = movieService.getSingleMovie(title);
+	public String getSingleMoviePage(@PathVariable String title, Model model) {
+		Movie result = movieService.getMovie(title);
 		model.addAttribute("movie", result);
 		
 		return "singlemovie";
 	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	//Might need this later if need User and user sesesion
+//	@PostMapping("/addmovie")
+//	public String addMovie(@ModelAttribute Movie movie, User user, HttpSession session, Model model) {		
+//		//user = (User) session.getAttribute("user");		
+//		
+//		Movie result = movieService.addMovie(movie);
+//		
+//		if (result != null) {
+//			model.addAttribute("message", "success");	
+//			model.addAttribute("movie", new Movie());
+//		} else {
+//			model.addAttribute("message", "fail");
+//			model.addAttribute("movie", new Movie());
+//		}
+//
+//		return "addmovie";
+//	}
+	
+//	@DeleteMapping("/movie/{title}")
+//	public void delete
+	
+	
+	
+	//
 	
 
 	

@@ -1,5 +1,6 @@
 package com.fdmgroup.springboot.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,27 +18,84 @@ public class MovieService {
 	@Autowired
 	MovieRepository movieRepository;
 	
-	public String addMovie(Movie movie) {
-		if (movieRepository.existsByTitle(movie.getTitle())) {
-			return "Fail";
+	//Create
+	public Movie addMovie(Movie movie) {
+		boolean doesMovieAlreadyExist = movieRepository.existsByTitle(movie.getTitle());
+		
+		if (!doesMovieAlreadyExist) {
+			movieRepository.save(movie);			
+			return movie;
 		} else {
-			movieRepository.save(movie);
-			return "Success";
+			return null;
 		}
 	}
 	
-	public List<Movie> getAllMovies() {
-		return movieRepository.findAll();
-	}
-	
-	public Movie getSingleMovie(String title) {
+	//Read
+	public Movie getMovie(String title) {
 		Optional<Movie> movie = movieRepository.findById(title);
 		
 		if (movie.isPresent())
 			return movie.get();
-		else
+		else 
 			return null;
 	}
+	
+	//Update
+	public Movie updateMovie(Movie movie) {
+		Movie updatedMovie = movieRepository.save(movie);
+		
+		return updatedMovie;
+	}
+	
+	//Delete
+	public void deleteMovie(String title) {
+		movieRepository.deleteById(title);
+	}
+	
+	
+	//List of all movies for main page
+	public List<Movie> getAllMovies() {
+		return movieRepository.findAll();
+	}
+	
+	
+	public void addFavourite(Movie queryMovie, User user) {
+		Movie movie = movieRepository.findById(queryMovie.getTitle()).get();
+
+		List<User> favouritedList = new ArrayList<>();
+
+		for (User item : movie.getFavouritedBy()) {
+			favouritedList.add(item);
+		}
+
+		favouritedList.add(user);
+
+		movie.setFavouritedBy(favouritedList);
+
+		movieRepository.save(movie);
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+
 	
 
 }

@@ -20,10 +20,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fdmgroup.springboot.Model.Movie;
 import com.fdmgroup.springboot.Model.User;
 import com.fdmgroup.springboot.Service.MovieService;
+
+import jakarta.servlet.http.HttpSession;
 
 @WebMvcTest(MovieController.class)
 class MovieControllerTest {	
@@ -43,8 +47,13 @@ class MovieControllerTest {
 	Model mockModel;
 	
 	
+	@Test
+	void GET_main_page() {
+		movieController.getMainPage(mockModel);
+		
+		verify(mockMovieService, times(1)).getAllMovies();
+	}
 	
-
 	@Test
 	void GET_add_movie_page() throws Exception {
 		mockMvc.perform(get("/addmovie"))
@@ -54,21 +63,39 @@ class MovieControllerTest {
 	}
 	
 	@Test
-	void POST_add_movie() throws Exception {
-		User user = new User("test", "password");
-		Movie movie = new Movie("title", 2016,  "genre", 9);
+	void POST_add_movie_success() {
+		Movie movie = new Movie("title", 2016, "genre", 9);
+	
+		movieController.addMovie(movie, mockModel);
 		
-		when(mockMovieService.addMovie(movie)).thenReturn("Success");
+		verify(mockMovieService, times(1)).addMovie(movie);
 		
-		assertEquals("addmovie", movieController.addMovie(movie, user, mockSession, mockModel));
+		assertEquals("addmovie", movieController.addMovie(movie, mockModel));
 	}
 	
 	@Test
-	void GET_main_page() throws Exception {
-		movieController.getMainPage(mockModel);
+	void GET_single_movie_page() {
+		movieController.getSingleMoviePage("Avatar", mockModel);
 		
-		verify(mockMovieService, times(1)).getAllMovies();
+		verify(mockMovieService, times(1)).getMovie("Avatar");
 	}
+	
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 
 	

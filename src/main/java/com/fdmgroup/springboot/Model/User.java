@@ -1,16 +1,14 @@
 package com.fdmgroup.springboot.Model;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+
 
 @Entity
 public class User {
@@ -20,38 +18,31 @@ public class User {
 
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
-
-	@ManyToMany
-	@JoinTable(
-			name = "USER_FAVOURITES", 
-			joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), 
-			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_TITLE"))
-	private List<Movie> favourites;
-
-	@ManyToMany
-	@JoinTable(
-			name = "USER_WATCHLIST", 
-			joinColumns = @JoinColumn(name = "FK_USER_USERNAME"), 
-			inverseJoinColumns = @JoinColumn(name = "FK_MOVIE_TITLE"))
-	private List<Movie> watchList;
 	
-	@OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
-	private List<Movie> moviePostsCreated;
+	@ManyToMany(mappedBy = "favouritedBy", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	private List<Movie> favourites = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "username")
-	private List<Review> reviews;
+	@ManyToMany(mappedBy = "watchlistedBy")
+	private List<Movie> watchlist = new ArrayList<>();
+	
 
 	
 	
-
 	
 	public User() {
 	}
-
+	
 	public User(String username, String password) {
-		super();
 		this.username = username;
 		this.password = password;
+	}
+
+	public User(String username, String password, List<Movie> favourites, List<Movie> watchlist) {
+	
+		this.username = username;
+		this.password = password;
+		this.favourites = favourites;
+		this.watchlist = watchlist;
 	}
 
 	public String getUsername() {
@@ -78,43 +69,30 @@ public class User {
 		this.favourites = favourites;
 	}
 
-	public List<Movie> getWatchList() {
-		return watchList;
+	public List<Movie> getWatchlist() {
+		return watchlist;
 	}
 
-	public void setWatchList(List<Movie> watchList) {
-		this.watchList = watchList;
-	}
-
-	public List<Review> getReviews() {
-		return reviews;
-	}
-
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
+	public void setWatchlist(List<Movie> watchlist) {
+		this.watchlist = watchlist;
 	}
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + "]";
+		return "User [username=" + username + ", password=" + password + ", favourites=" + favourites + ", watchlist="
+				+ watchlist + "]";
 	}
+	
+	
+	
+	
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(favourites, password, reviews, username, watchList);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		return Objects.equals(favourites, other.favourites) && Objects.equals(password, other.password)
-				&& Objects.equals(reviews, other.reviews) && Objects.equals(username, other.username)
-				&& Objects.equals(watchList, other.watchList);
-	}
+	
+	
+	
+
+
+
+
 }

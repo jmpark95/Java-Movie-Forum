@@ -1,13 +1,18 @@
 package com.fdmgroup.springboot.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fdmgroup.springboot.Model.Movie;
+import com.fdmgroup.springboot.Model.User;
+import com.fdmgroup.springboot.Service.MovieService;
 import com.fdmgroup.springboot.Service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -17,14 +22,28 @@ public class FavouritesController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	MovieService movieService;
+	
 	@GetMapping("/favourites")
-	public String getFavouritesByUsername(HttpSession session, Model model) {
-		List<Movie> favouritesList = userService.getFavouritesByUsername(session);
+	public String getFavourites(HttpSession session, Model model) {
+		User sessionUser = (User) session.getAttribute("user");
+
+		List<Movie> favouritesList = userService.getFavourites(sessionUser.getUsername());
+	
 		model.addAttribute("favouriteList", favouritesList);
 		
 		return "favourites";
 	}
 	
-	//add favourites will be a link on each movie detail page. SO come back to this once
-	//individual movie post part has been done
+	@PostMapping("/favourites")
+	public String addFavourite(@ModelAttribute Movie movie, HttpSession session) {
+		User sessionUser = (User) session.getAttribute("user");
+				
+		movieService.addFavourite(movie, sessionUser);
+		
+		return "redirect:/mainpage";
+	}
+	
 }
+

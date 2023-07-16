@@ -1,5 +1,6 @@
 package com.fdmgroup.springboot.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -7,56 +8,61 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Movie {
 	@Id
 	@Column(name = "TITLE", unique = true, nullable = false)
 	private String title;
-	
+
 	@Column(name = "YEAR OF RELEASE", nullable = false)
 	private int releaseYear;
-	
+
 	@Column(name = "GENRE", nullable = false)
 	private String genre;
-	
+
 	@Column(name = "AVERAGE RATING")
 	private int rating;
 	
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	@JoinTable(
+			name = "USER_FAVOURITES", 
+			joinColumns = @JoinColumn(name = "FK_TITLE"),
+			inverseJoinColumns = @JoinColumn(name = "FK_USERNAME"))
+	private List<User> favouritedBy = new ArrayList<>();
 	
-	
-	@ManyToMany(mappedBy = "favourites")
-	private List<User> favouritedBy;
-	
-	@ManyToMany(mappedBy = "watchList")
-	private List<User> watchlistedBy;
-	
-	@ManyToOne
-	@JoinColumn(name = "FK_USERNAME")
-	private User createdBy;
-	
-	
-	@OneToMany(mappedBy = "movie")
-	private List<Review> reviews;
-	
-	
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	@JoinTable(
+			name = "USER_WATCHLIST", 
+			joinColumns = @JoinColumn(name = "FK_TITLE_WATCHLIST"), 
+			inverseJoinColumns = @JoinColumn(name = "FK_USERNAME_WATCHLIST"))
+	private List<User> watchlistedBy = new ArrayList<>();
+
 
 	
-	
-	
+
+
 	
 	public Movie() {
 	}
-
+	
 	public Movie(String title, int releaseYear, String genre, int rating) {
+		this.title = title;
+		this.releaseYear = releaseYear;
+		this.genre = genre;
+		this.rating = rating;
+	}
+
+	public Movie(String title, int releaseYear, String genre, int rating, List<User> favouritedBy, List<User> watchlistedBy) {
 		super();
 		this.title = title;
 		this.releaseYear = releaseYear;
 		this.genre = genre;
 		this.rating = rating;
+		this.favouritedBy = favouritedBy;
+		this.watchlistedBy = watchlistedBy;
 	}
 
 	public String getTitle() {
@@ -91,26 +97,28 @@ public class Movie {
 		this.rating = rating;
 	}
 
-	public List<Review> getReviews() {
-		return reviews;
+	public List<User> getFavouritedBy() {
+		return favouritedBy;
 	}
 
-	public void setReviews(List<Review> reviews) {
-		this.reviews = reviews;
+	public void setFavouritedBy(List<User> favouritedBy) {
+		this.favouritedBy = favouritedBy;
 	}
 
-	public User getCreatedBy() {
-		return createdBy;
+	public List<User> getWatchlistedBy() {
+		return watchlistedBy;
 	}
 
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
+	public void setWatchlistedBy(List<User> watchlistedBy) {
+		this.watchlistedBy = watchlistedBy;
 	}
 
 	@Override
 	public String toString() {
 		return "Movie [title=" + title + ", releaseYear=" + releaseYear + ", genre=" + genre + ", rating=" + rating
-				+ "]";
+				+ ", favouritedBy=" + favouritedBy + ", watchlistedBy=" + watchlistedBy + "]";
 	}
+	
+	
 
 }
