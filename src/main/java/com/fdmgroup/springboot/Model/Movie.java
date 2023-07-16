@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Movie {
@@ -39,6 +40,11 @@ public class Movie {
 			joinColumns = @JoinColumn(name = "FK_TITLE_WATCHLIST"), 
 			inverseJoinColumns = @JoinColumn(name = "FK_USERNAME_WATCHLIST"))
 	private List<User> watchlistedBy = new ArrayList<>();
+	
+	
+	@OneToMany(mappedBy = "movie") //, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}
+	private List<Review> reviews = new ArrayList<>();
+
 
 
 	
@@ -111,6 +117,14 @@ public class Movie {
 
 	public void setWatchlistedBy(List<User> watchlistedBy) {
 		this.watchlistedBy = watchlistedBy;
+	}
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 	@Override

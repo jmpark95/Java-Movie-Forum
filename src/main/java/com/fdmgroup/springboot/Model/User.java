@@ -8,6 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -25,7 +26,9 @@ public class User {
 	@ManyToMany(mappedBy = "watchlistedBy", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	private List<Movie> watchlist = new ArrayList<>();
 	
-
+	@OneToMany(mappedBy = "user")
+	private List<Review> reviews = new ArrayList<>();
+	
 	
 	
 	

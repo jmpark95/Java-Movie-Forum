@@ -21,6 +21,9 @@
 		    <input type="submit" value="Submit" />
 		</form>
 		
+		<br>
+		<br>
+		
 		
 		<form th:action="@{/watchlist}" th:object="${movie}" method="POST">
 
@@ -32,7 +35,35 @@
 			<div>add to watchlist</div>
 		    <input type="submit" value="Submit" />
 		</form>
+		
+		<br>
+		<br>
+		
+		
+		
+		<h3>Add a review</h3>
+		<div>
+			<form th:action="@{'/movie/' + ${movie.title}}" th:object="${review}" method="POST">
+				<input type="text" th:field="*{reviewContent}" />
+				<input type="number" th:field="*{rating}" />
+				
+				<input type="submit" value="Sumbit" />
+			</form>
+		</div>
+			
+
+		<h1>All reviews</h1>
+		<div th:each="review : ${reviews}">
+			<div th:text="${review.reviewContent}"></div> <div th:text="${review.rating}"></div> <div th:text="${review.user}"></div>
+		</div>
 
 	</body>
 </html>
+
+
+
+
+
+
+
 
