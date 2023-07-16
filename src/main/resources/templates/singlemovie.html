@@ -11,14 +11,25 @@
 		
 		
 		<form th:action="@{/favourites}" th:object="${movie}" method="POST">
-		    
-		    
+
 		    <h3><input type="text" th:field="*{title}" /></h3>
 		    <p><input type="text" th:field="*{genre}" /></p>
 		    <p><input type="number" th:field="*{releaseYear}" /></p>
 		    <p><input type="number" th:field="*{rating}" /></p>
 		    
 			<div>add to favourites</div>
+		    <input type="submit" value="Submit" />
+		</form>
+		
+		
+		<form th:action="@{/watchlist}" th:object="${movie}" method="POST">
+
+		    <h3><input type="text" th:field="*{title}" /></h3>
+		    <p><input type="text" th:field="*{genre}" /></p>
+		    <p><input type="number" th:field="*{releaseYear}" /></p>
+		    <p><input type="number" th:field="*{rating}" /></p>
+		    
+			<div>add to watchlist</div>
 		    <input type="submit" value="Submit" />
 		</form>
 

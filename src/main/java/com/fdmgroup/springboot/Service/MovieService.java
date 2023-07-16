@@ -74,6 +74,22 @@ public class MovieService {
 
 		movieRepository.save(movie);
 	}
+	
+	public void addWatchlist(Movie queryMovie, User user) {
+		Movie movie = movieRepository.findById(queryMovie.getTitle()).get();
+
+		List<User> watchList = new ArrayList<>();
+
+		for (User item : movie.getWatchlistedBy()) {
+			watchList.add(item);
+		}
+
+		watchList.add(user);
+
+		movie.setWatchlistedBy(watchList);
+
+		movieRepository.save(movie);
+	}
 
 
 	

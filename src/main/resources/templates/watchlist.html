@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>The Movie Forum</title>
+	</head>
+
+	<body>
+		<h1>Welcome to your watchlist page, <span th:text="${session.user.username}"></span></h1>
+		<a href="/mainpage">Home</a>
+		
+		<div th:each="watchlist : ${watchList}">
+			<span th:text="${watchlist.title}" /> <span th:text="${watchlist.releaseYear}" /> <span th:text="${watchlist.rating}" /> <span th:text="${watchlist.genre}" />
+		</div>
+	</body>
+</html>
+
+

@@ -134,24 +134,27 @@ class MovieServiceTest {
 		
 	}
 	
+	@Test
+	void add_watchlist() {
+		Movie movie = new Movie("title", 2016, "genre", 9);
+		User user = new User("Min", "min");
+		
+		userRepository.save(user);
+		movieRepository.save(movie);
+		
+		movieService.addWatchlist(movie, user);
+		
+		Movie updatedMovie = movieRepository.findById("title").get();
+		
+		List<User> testList = new ArrayList<>();
+		testList.add(user);
+		
+		assertEquals(testList.toString(), updatedMovie.getWatchlistedBy().toString());
+		
+	}
+	
 	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 //	@Test

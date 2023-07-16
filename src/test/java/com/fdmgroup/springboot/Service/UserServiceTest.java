@@ -114,6 +114,22 @@ class UserServiceTest {
 		assertEquals(favouriteMovieList.toString(), userService.getFavourites("Min").toString());
 	}
 	
+	@Test
+	void get_watchlist() {
+		User user = new User("Min", "password");
+		
+		List<Movie> watchList = new ArrayList<>();
+		watchList.add(new Movie("Avatar", 2016, "genre", 9));
+		watchList.add(new Movie("LOTR", 2013, "genre", 8));
+		watchList.add(new Movie("Django", 2010, "genre", 4));
+		
+		user.setWatchlist(watchList);
+		
+		userRepository.save(user);
+		
+		assertEquals(watchList.toString(), userService.getWatchList("Min").toString());
+	}
+	
 
 
 	

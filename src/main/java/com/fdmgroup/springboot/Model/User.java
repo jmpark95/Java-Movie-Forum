@@ -22,7 +22,7 @@ public class User {
 	@ManyToMany(mappedBy = "favouritedBy", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	private List<Movie> favourites = new ArrayList<>();
 	
-	@ManyToMany(mappedBy = "watchlistedBy")
+	@ManyToMany(mappedBy = "watchlistedBy", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	private List<Movie> watchlist = new ArrayList<>();
 	
 

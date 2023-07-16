@@ -51,6 +51,13 @@ public class UserService {
 
 		return user.getFavourites();
 	}
+	
+	//Watchlist
+	public List<Movie> getWatchList(String userName) {
+		User user = userRepository.findById(userName).get();
+
+		return user.getWatchlist();
+	}
 
 
 
