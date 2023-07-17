@@ -5,14 +5,12 @@
 		<title>The Movie Forum</title>
 	</head>
 
+	<div th:insert="util :: header"></div>
+
 	<body>
-		<h1>Welcome to the single movie page, <span th:text="${session.user.username}"></span></h1>
-		<a href="/mainpage">Home</a>
-		
-		
 		<form th:action="@{/favourites}" th:object="${movie}" method="POST">
 
-		    <h3><input type="text" th:field="*{title}" /></h3>
+		    <h3><input type=text th:field="*{title}" /></h3>
 		    <p><input type="text" th:field="*{genre}" /></p>
 		    <p><input type="number" th:field="*{releaseYear}" /></p>
 		    <p><input type="number" step="0.1" th:field="*{rating}" /></p>

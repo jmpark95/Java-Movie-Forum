@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>The Movie Forum</title>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>The Movie Forum</title>
+    <style>
+        table {
+            width: 60%;
+            margin: auto;
+            padding: 40px;
+            position: relative;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-style: SOLID;
+            border-width: 1px;
+            border-color: #F7F7F7;
+            border-radius: 10px;
+            background-color: #F7F7F7;
+        }
+    </style>
+</head>
 
-	<body>
-		<h1>Welcome to your favourites page, <span th:text="${session.user.username}"></span></h1>
-		<a href="/mainpage">Home</a>
-		
-		<div th:each="favourite : ${favouriteList}">
-			<span th:text="${favourite.title}" /> <span th:text="${favourite.releaseYear}" /> <span th:text="${favourite.rating}" /> <span th:text="${favourite.genre}" />
-			<a th:href="@{/favourites/delete(movieTitle=${favourite.title})}">Remove From Favourites</a>
-		</div>
-	</body>
+<div th:insert="util :: header"></div>
+
+<body>
+	<h1 style="margin-top:70px; text-align:center;">Your favourites</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Year of release</th>
+                <th>Genre</th>
+                <th>Average Rating</th>
+         
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="favourite : ${favouriteList}">
+                <td style="text-align:center;" th:text="${favourite.title}"></td> <!-- <a th:href="@{'/movie/' + ${movie.title}}" th:text="${favourite.title}"></a> -->
+                <td style="text-align:center;" th:text="${favourite.releaseYear}"></td>
+                <td style="text-align:center;" th:text="${favourite.genre}"></td>
+                <td style="text-align:center;" th:text="${favourite.rating}"></td>
+                <td style="text-align:center;"><a th:href="@{/favourites/delete(movieTitle=${favourite.title})}">Remove From Favourites</a></td>
+                
+            </tr>
+        </tbody>
+    </table>
+</body>
+
 </html>

@@ -1,0 +1,14 @@
+<div th:fragment="header" style=" width: 100%; position: absolute; top: 0px; left:0px;  background-color: grey; height:50px;" >
+	<!-- <h3 style="width: 30%; color: white; padding-left: 20px; display: inline;">User Details</h3>
+	<h1 style="color: white; display: inline; padding-left: 20px;">User Manager</h1> 
+	<h3 style="text-align: right; color: white; padding-left: 20px;display: inline" th:text="${session.username}"></h3> -->
+	
+
+	<label style="color: pink; font-size: 1.17em; margin: .83em 0; margin-left: 10%">Welcome <span th:text="${session.user.username}"></span></label>
+	<a style="color: pink; padding-top: 10px; font-size: 2em; margin: .67em 0; text-decoration:none; margin-left:500px" href="/mainpage">IMDB</a>
+	<a style="color: pink; font-size: 1.17em; margin: .83em 0; margin-left: 40%" href="/logout">Logout</a>
+</div>
+
+<div th:fragment="footer" style="position: absolute; bottom: 0px;">
+	<p>Copyright 2023 Don's Examples .....</p>
+</div>

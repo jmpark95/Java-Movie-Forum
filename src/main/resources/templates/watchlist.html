@@ -1,17 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>The Movie Forum</title>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>The Movie Forum</title>
+    <style>
+        table {
+            width: 60%;
+            margin: auto;
+            padding: 40px;
+            position: relative;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-style: SOLID;
+            border-width: 1px;
+            border-color: #F7F7F7;
+            border-radius: 10px;
+            background-color: #F7F7F7;
+        }
+    </style>
+</head>
 
-	<body>
-		<h1>Welcome to your watchlist page, <span th:text="${session.user.username}"></span></h1>
-		<a href="/mainpage">Home</a>
-		
-		<div th:each="watchlist : ${watchList}">
-			<span th:text="${watchlist.title}" /> <span th:text="${watchlist.releaseYear}" /> <span th:text="${watchlist.rating}" /> <span th:text="${watchlist.genre}" />
-			<a th:href="@{/watchlist/delete(movieTitle=${watchlist.title})}">Remove From Watchlist</a>
-		</div>
-	</body>
+<div th:insert="util :: header"></div>
+
+<body>
+	<h1 style="margin-top:70px; text-align:center;">Your watchlist</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Year of release</th>
+                <th>Genre</th>
+                <th>Average Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="watchlist : ${watchList}">
+                <td style="text-align:center;" th:text="${watchlist.title}"></td> 			<!-- <a th:href="@{'/movie/' + ${movie.title}}" th:text="${watchlist.title}"></a> -->
+                <td style="text-align:center;" th:text="${watchlist.releaseYear}"></td>
+                <td style="text-align:center;" th:text="${watchlist.genre}"></td>
+                <td style="text-align:center;" th:text="${watchlist.rating}"></td>
+                <td style="text-align:center;"><a th:href="@{/watchlist/delete(movieTitle=${watchlist.title})}">Remove From watchlist</a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
 </html>

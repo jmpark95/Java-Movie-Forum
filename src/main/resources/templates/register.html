@@ -6,28 +6,34 @@
 	</head>
 
 	<body>
-		<h1>Register</h1>
-		<form th:action="@{/register}" method="POST">
-			<label for="username">Username: </label>
-			<input 
-				type="text" 
-				id="username"
-				name="username"
-				required
-				> <br>
-					
-			<label for="password">Password: </label>
-			<input 
-				type="password" 
-				id="password" 
-				name="password"
-				required> <br>
-			
-			<input type="submit" value="Sumbit"/>
-		</form>
 		
-		<div th:if="${error == 'username already exists'}">Username already exists</div>
-		<div th:if="${error == 'none'}"></div>
+		<div style="width: 30%; margin: auto; padding-top: 60px; padding-bottom: 40px; position: relative; top: 100px; padding-top: 10px; padding-bottom: 10px; border-style: SOLID; border-width: 1px; border-color: #F7F7F7; border-radius: 10px; background-color: #F7F7F7;" >
+			<h1 style="text-align: center;">Register</h1>
+			<form th:action="@{/register}"  method="POST"  style="padding-top: 20px;">
+				<table style="width: 100%; margin: auto; padding-bottom: 20px; margin-left: 20px;">
+							<tr>
+								<td align="right">Username :</td>
+								<td align="left"><input type="text" id="username" name="username" placeholder="Enter your username" required maxlength=20 /></td>
+							</tr>
+			
+			
+							 <tr>
+								<td align="right">Password :</td>
+								<td align="left"><input type="password" id="password" name=password placeholder="Enter your password" required maxlength=20 /></td>
+							</tr>
+				</table>
+				
+				<div style="text-align:center;">
+					<input type="submit" value="Register" style="width: 80px; margin-bottom: 10px;">
+					
+					<div th:if="${error == 'username already exists'}">Username already exists</div>
+					<div th:if="${error == 'none'}"></div>
+				</div>
+				
+				
+			</form>
+			
+			
+		</div>	
 	</body>
 </html>
-

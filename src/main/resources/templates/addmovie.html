@@ -4,42 +4,64 @@
 		<meta charset="UTF-8">
 		<title>The Movie Forum</title>
 	</head>
+	
+	<div th:insert="util :: header"></div>
 
 	<body>
-		<a href="/mainpage">Home</a>
-		
-		<h1>Add a movie</h1>
-		<form th:action="@{/addmovie}" th:object="${movie}" method="POST">
-			<label>Title: </label>
-			<input 
-				type="text"
-				th:field="*{title}"
-				required> <br>
-			
-			<label>Year of Release: </label>
-			<input 
-				type="text" 
-				th:field="*{releaseYear}"
-				required> <br>
+		<div style="width: 40%; margin:  auto; padding-top: 40px; padding-bottom: 40px; position: relative; top: 100px; padding-top: 10px; padding-bottom: 10px; border-style: SOLID; border-width: 1px; border-color: #F7F7F7; border-radius: 10px; background-color: #F7F7F7;" >
+			<h1 style="text-align:center;">Add a movie</h1>
+			<form  th:action="@{/addmovie}" method="POST"  th:object="${movie}" style="margin: 0 auto; padding-top: 20px;">
+				<table style="margin: 0 auto;  width: 65%;  padding-bottom: 20px;">
+					<tr>
+						<td align="right">Title :</td>
+						<td align="left"><input type="text" th:field="*{title}" required></td>
+					</tr>
+	
+					  <tr>
+						<td align="right">Year of Release :</td>
+						<td align="left"><input type="text" th:field="*{releaseYear}" required></td>
+					</tr>
+					
+					<tr>
+						<td align="right">Genre :</td>
+						<td align="left"><input type="text" th:field="*{genre}" required></td>
+					</tr>
+					
+					<tr>
+						<td align="right">Rating :</td>
+						<td align="left"><input type="number" min="1" max="10" step="0.5" th:field="*{rating}" required></td>
+					</tr>	
+				</table>
 				
-			<label>Genre: </label>
-			<input 
-				type="text" 
-				th:field="*{genre}"
-				required> <br>
-				
-			<label>Rating(1-10): </label>
-			<input 
-				type="number" 
-				th:field="*{rating}"
-				min="1"
-				max="10"
-				required> <br>	
+	 			<input type="submit" value="Save" style="cursor:pointer; margin-left: 50%; margin-bottom: 0; width:80px; border-width: 1px; border-radius: 6px"/>
+			</form>
 			
-			<input type="submit" value="Sumbit"/>
-		</form>
-		
-		<div th:if="${message == 'success'}">Your movie has been successfully saved</div>
-		<div th:if="${message == 'fail'}">That movie already exists. Please refer to the main page or enter a different movie</div>
+			<div style="text-align:center;" th:if="${message == 'success'}">Your movie has been successfully saved</div>
+			<div style="text-align:center;" th:if="${message == 'fail'}">That movie already exists. Please refer to the main page or enter a different movie</div>
+		</div>
+
 	</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,19 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="UTF-8">
-		<title>The Movie Forum</title>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>The Movie Forum</title>
+    <style>
+        table {
+            width: 60%;
+            margin: auto;
+            padding: 40px;
+            position: relative;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-style: SOLID;
+            border-width: 1px;
+            border-color: #F7F7F7;
+            border-radius: 10px;
+            background-color: #F7F7F7;
+        }
+    </style>
+</head>
 
-	<body>
-		<h1>Welcome to the main page, <span th:text="${session.user.username}"></span></h1>
-		<a href="/favourites">Your favourites</a>
-		<a href="/watchlist">Your watchlist</a>
-		<a href="/logout">Logout</a>
-		<a href="/addmovie">Add a movie</a>
-		<div th:each="movie : ${movies}">
-			<a th:href="@{'/movie/' + ${movie.title}}"><span th:text="${movie.title}" /> <span th:text="${movie.releaseYear}" /> <span th:text="${movie.rating}" /> <span th:text="${movie.genre}" /></a>
-		</div>
+<div th:insert="util :: header"></div>
+
+<body>
+
+	<div style="margin-top:80px; text-align:center; display:flex; justify-content:center; gap:50px;">
+		<div><a style=" color:black;	text-decoration: none; border: 1px solid; padding: 5px 20px; border-radius: 10px;" href="/favourites">Your favourites</a></div>
+	    <div><a style=" color:black;	text-decoration: none; border: 1px solid; padding: 5px 20px; border-radius: 10px;" href="/watchlist">Your watchlist</a></div>
+	    <div><a style=" color:black;	text-decoration: none; border: 1px solid; padding: 5px 20px; border-radius: 10px;" href="/addmovie">Add a movie</a></div>
+	</div>
+    
+	<h1 style="
+    text-align: center;
+    padding-top: 40px;
+">All movies</h1>
 	
-	</body>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Year of release</th>
+                <th>Genre</th>
+                <th>Average Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr  th:each="movie : ${movies}">
+                <td style="text-align:center;"><a th:href="@{'/movie/' + ${movie.title}}" th:text="${movie.title}"></a></td>
+                <td style="text-align:center;" th:text="${movie.releaseYear}"></td>
+                <td style="text-align:center;" th:text="${movie.genre}"></td>
+                <td style="text-align:center;" th:text="${movie.rating}"></td>
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+
 </html>
