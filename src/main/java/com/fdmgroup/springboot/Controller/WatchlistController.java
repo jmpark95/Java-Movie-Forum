@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,10 +38,12 @@ public class WatchlistController {
 		return "watchlist";
 	}
 	
-	@PostMapping("/watchlist")
-	public String addWatchList(@ModelAttribute Movie movie, HttpSession session) {
+	
+	@PostMapping("/movie/{title}/addwatchlist")
+	public String addWatchlist(@PathVariable String title, HttpSession session) {
 		User sessionUser = (User) session.getAttribute("user");
-				
+		Movie movie = movieService.getMovie(title);
+
 		movieService.addWatchlist(movie, sessionUser);
 		
 		return "redirect:/mainpage";
