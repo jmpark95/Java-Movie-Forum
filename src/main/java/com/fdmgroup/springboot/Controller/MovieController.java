@@ -66,7 +66,6 @@ public class MovieController {
 		Movie result = movieService.getMovie(title);
 		List<Review> allReviews = reviewService.getReviewsByMovie(title);
 
-		
 		model.addAttribute("movie", result);
 		model.addAttribute("reviews", allReviews);
 		model.addAttribute("review", new Review());
@@ -83,7 +82,7 @@ public class MovieController {
 		review.setMovie(movie);
 		review.setUser(user);
 		
-		reviewService.addReview(review);
+		reviewService.addReview(review, movie);
 		
 		return "redirect:/movie/{title}";
 	}

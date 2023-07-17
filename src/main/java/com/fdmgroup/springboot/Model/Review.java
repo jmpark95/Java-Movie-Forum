@@ -20,10 +20,9 @@ public class Review {
 	private String reviewContent;
 	
 	@Column(name = "RATING")
-	private int rating;
+	private double rating;
 	
-	@ManyToOne //(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}) Dont need cascading as persisting review doesnt need to persist a movie and user
-	//since these entities will already exist. I.e a review can't be created in the first place if there is no user and movie.
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinColumn(name = "FK_TITLE")
 	private Movie movie;
 	
@@ -39,7 +38,7 @@ public class Review {
 		super();
 	}
 
-	public Review(String reviewContent, int rating) {
+	public Review(String reviewContent, double rating) {
 		this.reviewContent = reviewContent;
 		this.rating = rating;
 	}
@@ -60,11 +59,11 @@ public class Review {
 		this.reviewContent = reviewContent;
 	}
 
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
+	public void setRating(double rating) {
 		this.rating = rating;
 	}
 

@@ -15,7 +15,7 @@
 		    <h3><input type="text" th:field="*{title}" /></h3>
 		    <p><input type="text" th:field="*{genre}" /></p>
 		    <p><input type="number" th:field="*{releaseYear}" /></p>
-		    <p><input type="number" th:field="*{rating}" /></p>
+		    <p><input type="number" step="0.1" th:field="*{rating}" /></p>
 		    
 			<div>add to favourites</div>
 		    <input type="submit" value="Submit" />
@@ -30,7 +30,7 @@
 		    <h3><input type="text" th:field="*{title}" /></h3>
 		    <p><input type="text" th:field="*{genre}" /></p>
 		    <p><input type="number" th:field="*{releaseYear}" /></p>
-		    <p><input type="number" th:field="*{rating}" /></p>
+		    <p><input type="number" step="0.1"  th:field="*{rating}" /></p>
 		    
 			<div>add to watchlist</div>
 		    <input type="submit" value="Submit" />
@@ -45,7 +45,7 @@
 		<div>
 			<form th:action="@{'/movie/' + ${movie.title}}" th:object="${review}" method="POST">
 				<input type="text" th:field="*{reviewContent}" />
-				<input type="number" th:field="*{rating}" />
+				<input type="number" step="0.1" th:field="*{rating}" />
 				
 				<input type="submit" value="Sumbit" />
 			</form>

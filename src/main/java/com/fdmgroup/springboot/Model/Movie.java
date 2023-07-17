@@ -1,10 +1,12 @@
 package com.fdmgroup.springboot.Model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -24,9 +26,6 @@ public class Movie {
 	@Column(name = "GENRE", nullable = false)
 	private String genre;
 
-	@Column(name = "AVERAGE RATING")
-	private int rating;
-	
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(
 			name = "USER_FAVOURITES", 
@@ -41,9 +40,15 @@ public class Movie {
 			inverseJoinColumns = @JoinColumn(name = "FK_USERNAME_WATCHLIST"))
 	private List<User> watchlistedBy = new ArrayList<>();
 	
-	
 	@OneToMany(mappedBy = "movie") //, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}
 	private List<Review> reviews = new ArrayList<>();
+	
+	@Column(name = "AVERAGE RATING")
+	private double rating;
+	
+	@Column(name = "RATING_HISTORY")
+	@ElementCollection
+	private List<Double> ratingHistory = new ArrayList<>();
 
 
 
@@ -54,14 +59,14 @@ public class Movie {
 	public Movie() {
 	}
 	
-	public Movie(String title, int releaseYear, String genre, int rating) {
+	public Movie(String title, int releaseYear, String genre, double rating) {
 		this.title = title;
 		this.releaseYear = releaseYear;
 		this.genre = genre;
 		this.rating = rating;
 	}
 
-	public Movie(String title, int releaseYear, String genre, int rating, List<User> favouritedBy, List<User> watchlistedBy) {
+	public Movie(String title, int releaseYear, String genre, double rating, List<User> favouritedBy, List<User> watchlistedBy) {
 		super();
 		this.title = title;
 		this.releaseYear = releaseYear;
@@ -95,12 +100,14 @@ public class Movie {
 		this.genre = genre;
 	}
 
-	public int getRating() {
+	public double getRating() {
 		return rating;
 	}
 
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setRating(double rating) {
+		//this.rating = rating;
+	    this.ratingHistory.add(rating);
+	    calculateAverageRating();
 	}
 
 	public List<User> getFavouritedBy() {
@@ -125,6 +132,40 @@ public class Movie {
 
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
+	}
+	
+
+	public List<Double> getRatingHistory() {
+		return ratingHistory;
+	}
+
+	public void setRatingHistory(List<Double> ratingHistory) {
+		this.ratingHistory = ratingHistory;
+	}
+	
+//	public void setRatingHistory(Double rating) {
+//		this.ratingHistory.add(rating);
+//	}
+
+
+
+	private void calculateAverageRating() {
+	    double sum = 0;
+	    for (Double rating : ratingHistory) {
+	        sum += rating;
+	    }
+	    if (!ratingHistory.isEmpty()) {
+	        this.rating = roundToOneDecimal(sum / ratingHistory.size());
+	    } else {
+	        this.rating = 0;
+	    }
+	}
+	
+	private double roundToOneDecimal(Double value) {
+		DecimalFormat numberFormat = new DecimalFormat("#.0");
+		
+		return Double.parseDouble(numberFormat.format(value));
+
 	}
 
 	@Override
