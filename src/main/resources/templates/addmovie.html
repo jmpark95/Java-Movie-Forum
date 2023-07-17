@@ -28,6 +28,21 @@
 					</tr>
 					
 					<tr>
+						<td align="right">Director :</td>
+						<td align="left"><input type="text" th:field="*{director}" required></td>
+					</tr>
+					
+					<tr>
+						<td align="right">Cast :</td>
+						<td align="left"><input type="text" th:field="*{actors}" required></td>
+					</tr>
+					
+					<tr>
+						<td align="right">Plot :</td>
+						<td align="left"><textarea rows="3" cols="21" th:field="*{plot}" required></textarea></td>
+					</tr>
+					
+					<tr>
 						<td align="right">Rating :</td>
 						<td align="left"><input type="number" min="1" max="10" step="0.1" th:field="*{rating}" required></td>
 					</tr>	

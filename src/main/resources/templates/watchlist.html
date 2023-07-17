@@ -35,7 +35,7 @@
         </thead>
         <tbody>
             <tr th:each="watchlist : ${watchList}">
-                <td style="text-align:center;" th:text="${watchlist.title}"></td> 			<!-- <a th:href="@{'/movie/' + ${movie.title}}" th:text="${watchlist.title}"></a> -->
+            	<td style="text-align:center;"><a th:href="@{'/movie/' + ${watchlist.title}}" th:text="${watchlist.title}"></a></td>
                 <td style="text-align:center;" th:text="${watchlist.releaseYear}"></td>
                 <td style="text-align:center;" th:text="${watchlist.genre}"></td>
                 <td style="text-align:center;" th:text="${watchlist.rating}"></td>

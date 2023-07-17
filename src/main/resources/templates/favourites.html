@@ -36,7 +36,7 @@
         </thead>
         <tbody>
             <tr th:each="favourite : ${favouriteList}">
-                <td style="text-align:center;" th:text="${favourite.title}"></td> <!-- <a th:href="@{'/movie/' + ${movie.title}}" th:text="${favourite.title}"></a> -->
+            	<td style="text-align:center;"><a th:href="@{'/movie/' + ${favourite.title}}" th:text="${favourite.title}"></a></td>
                 <td style="text-align:center;" th:text="${favourite.releaseYear}"></td>
                 <td style="text-align:center;" th:text="${favourite.genre}"></td>
                 <td style="text-align:center;" th:text="${favourite.rating}"></td>

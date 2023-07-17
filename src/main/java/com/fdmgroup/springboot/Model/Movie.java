@@ -49,6 +49,15 @@ public class Movie {
 	@Column(name = "RATING_HISTORY")
 	@ElementCollection
 	private List<Double> ratingHistory = new ArrayList<>();
+	
+	@Column(name = "DIRECTOR", nullable = false)
+	private String director;
+	
+	@Column(name = "ACTORS", nullable = false)
+	private String actors;
+	
+	@Column(name = "PLOT", nullable = false)
+	private String plot;
 
 
 
@@ -146,6 +155,32 @@ public class Movie {
 //	public void setRatingHistory(Double rating) {
 //		this.ratingHistory.add(rating);
 //	}
+	
+	
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
+	public String getActors() {
+		return actors;
+	}
+
+	public void setActors(String actors) {
+		this.actors = actors;
+	}
+
+	public String getPlot() {
+		return plot;
+	}
+
+	public void setPlot(String plot) {
+		this.plot = plot;
+	}
+	
 
 
 
@@ -160,7 +195,8 @@ public class Movie {
 	        this.rating = 0;
 	    }
 	}
-	
+
+
 	private double roundToOneDecimal(Double value) {
 		DecimalFormat numberFormat = new DecimalFormat("#.0");
 		
@@ -171,11 +207,8 @@ public class Movie {
 	@Override
 	public String toString() {
 		return "Movie [title=" + title + ", releaseYear=" + releaseYear + ", genre=" + genre + ", rating=" + rating
-				+ "]";
+				+ ", ratingHistory=" + ratingHistory + ", director=" + director + ", actors=" + actors + ", plot="
+				+ plot + "]";
 	}
-
-	
-	
-	
 
 }

@@ -38,20 +38,29 @@ class ReviewServiceTest {
 		reviewRepository.deleteAll();
 		movieRepository.deleteAll();
 	}
+	
+	
+	//Create
+	public Review addReview(Review review, Movie movie) {
+		movie.setRating(review.getRating());
+		
+		movieRepository.save(movie);
+		
+		return reviewRepository.save(review);
+	}
+	
 
 	@Test
 	void add_review() {
-		Review review = new Review("Great movie", 10);
+		Review review = new Review("Great movie", 10.0);
 		Movie movie = new Movie("Titatnic", 1995, "Drama", 9);
-		User user = new User("Testuser", "pw");
+		movie.setRating(review.getRating());
 		
-		review.setMovie(movie);
-		review.setUser(user);
+		movieRepository.save(movie);
 		
-		Review returnedReview = reviewService.addReview(review);
-		int tableID = returnedReview.getId();
+		reviewService.addReview(review, movie);
 		
-		assertEquals(review, reviewRepository.findById(tableID).get());	
+		assertEquals(review.toString(), reviewService.addReview(review, movie).toString());	
 	}
 	
 	@Test

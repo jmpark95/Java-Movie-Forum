@@ -12,11 +12,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fdmgroup.springboot.Model.Movie;
 import com.fdmgroup.springboot.Model.User;
 import com.fdmgroup.springboot.Service.MovieService;
 import com.fdmgroup.springboot.Service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 @SpringBootTest
 class WatchlistControllerTest {
@@ -44,13 +48,11 @@ class WatchlistControllerTest {
 		
 		when(mockSession.getAttribute("user")).thenReturn(user);
 
-		assertEquals("redirect:/mainpage", watchlistController.addWatchList(movie, mockSession));
+		assertEquals("redirect:/mainpage", watchlistController.addWatchlist("title", mockSession));
 		
-		verify(movieService, times(1)).addWatchlist(movie, user);
+		verify(movieService, times(1)).getMovie("title");
 	}
 
 
-	
-
-
 }
+
