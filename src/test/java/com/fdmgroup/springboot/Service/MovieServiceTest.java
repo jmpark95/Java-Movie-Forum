@@ -38,6 +38,7 @@ class MovieServiceTest {
 	@BeforeEach
 	void setup() {
 		movieRepository.deleteAll();
+		userRepository.deleteAll();
 	}
 	
 	@Test
@@ -153,8 +154,67 @@ class MovieServiceTest {
 		
 	}
 	
+	@Test
+	void delete_a_user_from_a_movies_favouritedBy_list() {
+		User user = new User("TestforFav", "abc123");
+		User user2 = new User("TestforFav2", "abc123");
+		Movie movie = new Movie("MovieForFav", 2016, "genre", 9);
+		
+		List<User> favList = new ArrayList<>();
+		favList.add(user);
+		favList.add(user2);
+		
+		movie.setFavouritedBy(favList);
+		
+		movieRepository.save(movie);
+		
+		movieService.deleteUserFromFavourited("TestforFav2", "MovieForFav");
+		
+		List<User> testFavList = new ArrayList<>();
+		testFavList.add(user);
+		
+		assertEquals(testFavList.toString(), movieRepository.findById("MovieForFav").get().getFavouritedBy().toString());
+	}
+	
+	@Test
+	void delete_a_user_from_a_movies_watchlistedBy_list() {
+		User user = new User("TestforFav", "abc123");
+		User user2 = new User("TestforFav2", "abc123");
+		Movie movie = new Movie("MovieForFav", 2016, "genre", 9);
+		
+		List<User> watchlist = new ArrayList<>();
+		watchlist.add(user);
+		watchlist.add(user2);
+		
+		movie.setWatchlistedBy(watchlist);
+		
+		movieRepository.save(movie);
+		
+		movieService.deleteUserFromWatchlisted("TestforFav2", "MovieForFav");
+		
+		List<User> testWatchlist = new ArrayList<>();
+		testWatchlist.add(user);
+		
+		assertEquals(testWatchlist.toString(), movieRepository.findById("MovieForFav").get().getWatchlistedBy().toString());
+	}
+	
 	
 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 //	@Test

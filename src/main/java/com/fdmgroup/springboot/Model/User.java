@@ -41,7 +41,6 @@ public class User {
 	}
 
 	public User(String username, String password, List<Movie> favourites, List<Movie> watchlist) {
-	
 		this.username = username;
 		this.password = password;
 		this.favourites = favourites;
@@ -82,7 +81,9 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + "]";
+		return "User [username=" + username + ", password=" + password + ", favourites=" + favourites + "]";
 	}
+
+	
 
 }

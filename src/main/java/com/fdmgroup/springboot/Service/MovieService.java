@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
 import com.fdmgroup.springboot.Model.Movie;
 import com.fdmgroup.springboot.Model.User;
 import com.fdmgroup.springboot.Repository.MovieRepository;
-
-import jakarta.servlet.http.HttpSession;
+import com.fdmgroup.springboot.Repository.UserRepository;
 
 @Service
 public class MovieService {
 	@Autowired
 	MovieRepository movieRepository;
+	@Autowired
+	UserRepository userRepository;
 	
 	//Create
 	public Movie addMovie(Movie movie) {
@@ -92,8 +93,24 @@ public class MovieService {
 	}
 
 
+	//Delete a user from a movie's favouritedBy list
+	public void deleteUserFromFavourited(String userName, String movieTitle) {		
+		Movie movie = movieRepository.findById(movieTitle).get();
+		User user = userRepository.findById(userName).get();
+
+		movie.getFavouritedBy().remove(user);
+
+		movieRepository.save(movie);
+	}
 	
-	
+	public void deleteUserFromWatchlisted(String userName, String movieTitle) {		
+		Movie movie = movieRepository.findById(movieTitle).get();
+		User user = userRepository.findById(userName).get();
+
+		movie.getWatchlistedBy().remove(user);
+
+		movieRepository.save(movie);
+	}
 	
 	
 	

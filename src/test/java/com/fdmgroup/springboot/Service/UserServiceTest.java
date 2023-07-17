@@ -130,6 +130,42 @@ class UserServiceTest {
 		assertEquals(watchList.toString(), userService.getWatchList("Min").toString());
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	@Test
+//	void remove_a_movie_from_users_favourite_list() {
+//		User user = new User("TestforFav", "abc123");
+//		
+//		List<Movie> favList = new ArrayList<>();
+//		favList.add(new Movie("MovieForFav", 2016, "genre", 9));
+//		favList.add(new Movie("MovieForFav2", 2013, "genre", 8));
+//
+//		user.setFavourites(favList);
+//		
+//		userRepository.save(user);
+//		
+//		userService.deleteFavourite("TestforFav", "MovieForFav2");
+//		
+//		List<Movie> testFavList = new ArrayList<>();
+//		testFavList.add(new Movie("MovieForFav", 2016, "genre", 9));
+//		
+//		assertEquals(testFavList.toString(), userRepository.findById("TestforFav").get().getFavourites().toString());
+//	}
 
 
 	

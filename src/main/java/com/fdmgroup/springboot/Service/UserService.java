@@ -1,6 +1,5 @@
 package com.fdmgroup.springboot.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,12 +8,18 @@ import org.springframework.stereotype.Service;
 
 import com.fdmgroup.springboot.Model.Movie;
 import com.fdmgroup.springboot.Model.User;
+import com.fdmgroup.springboot.Repository.MovieRepository;
 import com.fdmgroup.springboot.Repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	MovieRepository movieRepository;
 
 	// Create
 	public User addUser(User user) {
@@ -58,8 +63,25 @@ public class UserService {
 
 		return user.getWatchlist();
 	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
 
 
+	
+	
+	
+	
 
 //	
 //	public List<Movie> getFavouritesByUsername(HttpSession session) {

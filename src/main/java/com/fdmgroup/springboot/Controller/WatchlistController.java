@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fdmgroup.springboot.Model.Movie;
 import com.fdmgroup.springboot.Model.User;
@@ -43,6 +44,15 @@ public class WatchlistController {
 		movieService.addWatchlist(movie, sessionUser);
 		
 		return "redirect:/mainpage";
+	}
+	
+	@GetMapping("/watchlist/delete")
+	public String deleteWatchlist(HttpSession session, @RequestParam String movieTitle) {
+		User sessionUser = (User) session.getAttribute("user");
+		
+		movieService.deleteUserFromWatchlisted(sessionUser.getUsername(), movieTitle);
+
+		return "redirect:/watchlist";
 	}
 	
 }

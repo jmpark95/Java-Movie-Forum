@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fdmgroup.springboot.Model.Movie;
 import com.fdmgroup.springboot.Model.User;
@@ -43,6 +44,15 @@ public class FavouritesController {
 		movieService.addFavourite(movie, sessionUser);
 		
 		return "redirect:/mainpage";
+	}
+	
+	@GetMapping("/favourites/delete")
+	public String deleteFavourite(HttpSession session, @RequestParam String movieTitle) {
+		User sessionUser = (User) session.getAttribute("user");
+		
+		movieService.deleteUserFromFavourited(sessionUser.getUsername(), movieTitle);
+
+		return "redirect:/favourites";
 	}
 	
 }
