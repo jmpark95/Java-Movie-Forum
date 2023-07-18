@@ -72,6 +72,12 @@ public class MovieController {
 		model.addAttribute("review", new Review());
 		
 		return "singlemovie";
+		
+		
+		// at this point, we have a list of all reviews for this particular movie
+		//
+		
+		
 	}
 	
 
