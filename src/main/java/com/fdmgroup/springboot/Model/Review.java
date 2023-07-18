@@ -1,7 +1,11 @@
 package com.fdmgroup.springboot.Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,8 +34,10 @@ public class Review {
 	@JoinColumn(name = "FK_USERNAME")
 	private User user;
 	
-	
-	
+	@Column(name = "REACTIONS")
+	@ElementCollection
+	private Map<String, Integer> reactions = new HashMap<String, Integer>();
+
 	
 
 	public Review() {
