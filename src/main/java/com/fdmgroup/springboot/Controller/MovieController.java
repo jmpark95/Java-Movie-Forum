@@ -65,6 +65,7 @@ public class MovieController {
 	public String getSingleMoviePage(@PathVariable String title, Model model) {
 		Movie result = movieService.getMovie(title);
 		List<Review> allReviews = reviewService.getReviewsByMovie(title);
+		//reviewService.getNumberOfLikes(0)
 
 		model.addAttribute("movie", result);
 		model.addAttribute("reviews", allReviews);

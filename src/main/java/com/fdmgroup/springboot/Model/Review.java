@@ -1,17 +1,17 @@
 package com.fdmgroup.springboot.Model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 
 @Entity
@@ -34,14 +34,21 @@ public class Review {
 	@JoinColumn(name = "FK_USERNAME")
 	private User user;
 	
-	@Column(name = "REACTIONS")
-	@ElementCollection
-	private Map<String, Integer> reactions = new HashMap<String, Integer>();
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	private List<User> likedBy = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	private List<User> dislikedBy = new ArrayList<>();
+	
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	private List<User> hahadBy = new ArrayList<>();
+
 
 	
 
 	public Review() {
 		super();
+
 	}
 
 	public Review(String reviewContent, double rating) {
@@ -89,11 +96,35 @@ public class Review {
 		this.user = user;
 	}
 
+	public List<User> getLikedBy() {
+		return likedBy;
+	}
+
+	public void setLikedBy(List<User> likedBy) {
+		this.likedBy = likedBy;
+	}
+
+	public List<User> getDislikedBy() {
+		return dislikedBy;
+	}
+
+	public void setDislikedBy(List<User> dislikedBy) {
+		this.dislikedBy = dislikedBy;
+	}
+
+	public List<User> getHahadBy() {
+		return hahadBy;
+	}
+
+	public void setHahadBy(List<User> hahadBy) {
+		this.hahadBy = hahadBy;
+	}
+
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", reviewContent=" + reviewContent + ", rating=" + rating + ", movie=" + movie + ", user="
-				+ user + "]";
+		return "Review [id=" + id + ", reviewContent=" + reviewContent + ", rating=" + rating + ", movie=" + movie
+				+ ", user=" + user + ", likedBy=" + likedBy + ", dislikedBy=" + dislikedBy + ", hahadBy=" + hahadBy
+				+ "]";
 	}
-	
 	
 }

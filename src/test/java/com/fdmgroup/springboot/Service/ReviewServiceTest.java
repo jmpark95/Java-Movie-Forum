@@ -15,9 +15,12 @@ import com.fdmgroup.springboot.Model.Review;
 import com.fdmgroup.springboot.Model.User;
 import com.fdmgroup.springboot.Repository.MovieRepository;
 import com.fdmgroup.springboot.Repository.ReviewRepository;
+import com.fdmgroup.springboot.Repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @SpringBootTest
-//@Transactional
+@Transactional
 class ReviewServiceTest {
 	@Autowired
 	ReviewService reviewService;
@@ -27,6 +30,9 @@ class ReviewServiceTest {
 	
 	@Autowired
 	MovieRepository movieRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 
 
@@ -84,14 +90,30 @@ class ReviewServiceTest {
 
 		assertEquals(reviewList, reviewService.getReviewsByMovie("Titanic"));
 	}
-
 	
 
+	@Test
+	void click_like_test() {
+		User user =  new User("test", "testpw");
+		User user2 = new User("test2", "testpw");
+		List<User> likedList = new ArrayList<>();
+		likedList.add(user);
+		likedList.add(user2);
+		
+		Review review = new Review();
+		review.setLikedBy(likedList);
+		
+		Review savedReview = reviewRepository.save(review);
 
+		reviewService.clickLike(savedReview.getId(), user2);
+		
+		List<User> testLikedList = new ArrayList<>();
+		testLikedList.add(user);
+
+		assertEquals(testLikedList.toString(), savedReview.getLikedBy().toString());
+	}
 	
-	
-	
-	
+
 	
 	
 	
