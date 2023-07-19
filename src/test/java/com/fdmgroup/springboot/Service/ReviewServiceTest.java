@@ -46,7 +46,6 @@ class ReviewServiceTest {
 	}
 	
 	
-	//Create
 	public Review addReview(Review review, Movie movie) {
 		movie.setRating(review.getRating());
 		
@@ -92,6 +91,8 @@ class ReviewServiceTest {
 	}
 	
 
+	
+
 	@Test
 	void click_like_test() {
 		User user =  new User("test", "testpw");
@@ -113,7 +114,6 @@ class ReviewServiceTest {
 		assertEquals(testLikedList.toString(), savedReview.getLikedBy().toString());
 	}
 	
-
 	
 	
 	

@@ -40,7 +40,7 @@ public class Movie {
 			inverseJoinColumns = @JoinColumn(name = "FK_USERNAME_WATCHLIST"))
 	private List<User> watchlistedBy = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "movie") //, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)  //, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}
 	private List<Review> reviews = new ArrayList<>();
 	
 	@Column(name = "AVERAGE RATING")

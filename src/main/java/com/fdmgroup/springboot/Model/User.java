@@ -79,6 +79,14 @@ public class User {
 	public void setWatchlist(List<Movie> watchlist) {
 		this.watchlist = watchlist;
 	}
+	
+	
+	//this might cause an error later on. check again
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", password=" + password + ", favourites=" + favourites + ", watchlist="
+				+ watchlist + ", reviews=" + reviews + "]";
+	}
 
 	@Override
 	public int hashCode() {

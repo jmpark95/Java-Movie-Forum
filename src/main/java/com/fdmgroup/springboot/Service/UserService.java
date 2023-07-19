@@ -11,7 +11,6 @@ import com.fdmgroup.springboot.Model.User;
 import com.fdmgroup.springboot.Repository.MovieRepository;
 import com.fdmgroup.springboot.Repository.UserRepository;
 
-import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {

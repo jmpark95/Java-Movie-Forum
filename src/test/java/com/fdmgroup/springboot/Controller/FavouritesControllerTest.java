@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 
 import com.fdmgroup.springboot.Model.Movie;
 import com.fdmgroup.springboot.Model.User;
-import com.fdmgroup.springboot.Repository.UserRepository;
 import com.fdmgroup.springboot.Service.MovieService;
 import com.fdmgroup.springboot.Service.UserService;
 

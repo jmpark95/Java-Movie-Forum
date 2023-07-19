@@ -139,16 +139,22 @@ class MovieServiceTest {
 		userRepository.save(user);
 		movieRepository.save(movie);
 		
-		movieService.addFavourite(movie, user);
+		User savedUser = userRepository.findById("Min").get();
+		Movie savedMovie = movieRepository.findById("title").get();
+		
+		movieService.addFavourite(savedMovie, savedUser);
 		
 		Movie updatedMovie = movieRepository.findById("title").get();
 		
+
 		List<User> testList = new ArrayList<>();
 		testList.add(user);
-		
+		//movie.setFavouritedBy(testList);
+
 		assertEquals(testList.toString(), updatedMovie.getFavouritedBy().toString());
-		
 	}
+	
+
 	
 	@Test
 	void add_watchlist() {
@@ -212,79 +218,5 @@ class MovieServiceTest {
 		
 		assertEquals(testWatchlist.toString(), movieRepository.findById("MovieForFav").get().getWatchlistedBy().toString());
 	}
-	
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-//	@Test
-//	void test() {
-//		Movie movie = new Movie("TESTTTTT", 2016, "genre", 9);
-//		Movie movie2 = new Movie("test2", 2015, "action", 9);
-//		
-//		Movie Movie = new Movie("test1","testpw");
-//		
-//		movie.setCreatedBy(Movie);
-//		movie2.setCreatedBy(Movie);
-//		
-//		movieRepository.save(movie);
-//		movieRepository.save(movie2);
-//		
-//		movieRepository.deleteById("TESTTTTT");
-//	}
-
-	
-
-	
-	
-//	@Test
-//	void add__movie_returns_success() {
-//        Movie movie = new Movie("movieTitle", 2016, "genre", 9);
-//
-//        assertEquals("Success", movieService.addMovie(movie));
-//	}
-//	
-//	@Test
-//	void already_existing_movie_returns_fail() {
-//        Movie movie = new Movie("movieTitle", 2016, "genre", 9);
-//        
-//        movieService.addMovie(movie);
-//
-//        assertEquals("Fail", movieService.addMovie(movie));
-//	}
-//	
-
-//	
-//	@Test
-//	void get_single_movie() {
-//		Movie movie = new Movie("title", 2016, "genre", 9);
-//		movieRepository.save(movie);
-//
-//		assertEquals(movie, movieService.getSingleMovie("title"));
-//	}
-//	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
