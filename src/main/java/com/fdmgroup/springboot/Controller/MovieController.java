@@ -28,6 +28,9 @@ public class MovieController {
 	@Autowired
 	ReviewService reviewService;
 	
+	@Autowired
+	UserRepository userRepository;
+	
 	
 	@GetMapping("/mainpage")
 	public String getMainPage(Model model) {
@@ -62,22 +65,19 @@ public class MovieController {
 	}
 	
 	@GetMapping("/movie/{title}")
-	public String getSingleMoviePage(@PathVariable String title, Model model) {
+	public String getSingleMoviePage(@PathVariable String title, Model model, HttpSession session) {
 		Movie result = movieService.getMovie(title);
 		List<Review> allReviews = reviewService.getReviewsByMovie(title);
-		//reviewService.getNumberOfLikes(0)
-
+		User sessionUser = (User) session.getAttribute("user");
+		User currentUser = userRepository.findById(sessionUser.getUsername()).get();
+		
 		model.addAttribute("movie", result);
 		model.addAttribute("reviews", allReviews);
 		model.addAttribute("review", new Review());
 		
+		model.addAttribute("currentUser", currentUser.getUsername());
+
 		return "singlemovie";
-		
-		
-		// at this point, we have a list of all reviews for this particular movie
-		//
-		
-		
 	}
 	
 

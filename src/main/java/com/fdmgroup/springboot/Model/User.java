@@ -81,11 +81,6 @@ public class User {
 	}
 
 	@Override
-	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", favourites=" + favourites + "]";
-	}
-
-	@Override
 	public int hashCode() {
 		return Objects.hash(favourites, password, reviews, username, watchlist);
 	}
@@ -103,6 +98,11 @@ public class User {
 				&& Objects.equals(reviews, other.reviews) && Objects.equals(username, other.username)
 				&& Objects.equals(watchlist, other.watchlist);
 	}
+
+
+
+
+
 	
 	
 

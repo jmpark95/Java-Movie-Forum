@@ -3,9 +3,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>The Movie Forum</title>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />">
 		
-    
+	    
+		<div th:insert="util :: font"></div>
+
+
+
 	</head>
 
 	<div th:insert="util :: header"></div>
@@ -79,40 +83,40 @@
 		</div>
 			
 		<div style="padding-bottom: 300px;">
-			<h1 style="padding-left:300px;">All reviews</h1>
-			<div style="margin:auto; width: 70%; border-top: 1px solid; border-bottom: 1px solid; padding-bottom:30px; padding-top:30px" th:each="review : ${reviews}">
+			<h1 style="padding-left:300px;" id="reviews">All reviews</h1>
+
+			<div style="margin:auto; width: 70%; border-top: 1px solid; border-bottom: 1px solid; padding-bottom:30px; padding-top:30px" th:each="review : ${reviews}">	
 				<div style="padding-bottom: 15px"><h3 style="display:inline;">Review by: </h3> <h3 style="display:inline" th:text="${review.user.username}"></h3></div>
 				<div style="padding-bottom: 15px" th:text="${review.reviewContent}"></div>
 				<span>Rates this movie: </span><span th:text="${review.rating}"></span>
-				<div style="padding-top: 20px;">
-					<a th:href="@{'/clicklike/' + ${review.id} + '?title=' + ${movie.title}}"><i style="color:black;" class="far fa-thumbs-up fa-lg"></i></a> 
-					<span style="margin-right:30px;" th:text="${review.likedBy.size}"></span>
+				
+
+				
+				<div style="padding-top:20px;" >
+						<a style="text-decoration: none;" th:href="@{'/clicklike/' + ${review.id} + '?title=' + ${movie.title}}" >
+							<i th:if="${#lists.contains(review.getNamesOfLikedBy, currentUser)}"		style="color:DodgerBlue;" class="fas fa-thumbs-up fa-lg"></i>
+							<i th:if="!${#lists.contains(review.getNamesOfLikedBy, currentUser)}"		style="color:black;" class="far fa-thumbs-up fa-lg"></i>
+						</a> 
+						<span style="margin-right:30px;" th:text="${review.likedBy.size}"></span>
+				
 					
-					<a th:href="@{'/clickdislike/' + ${review.id} + '?title=' + ${movie.title}}"><i style="color:black;" class="far fa-thumbs-down fa-lg"></i></a> 
-					<span style="margin-right:30px;" th:text="${review.dislikedBy.size}"></span>
-			
+						<a style="text-decoration: none;" th:href="@{'/clickdislike/' + ${review.id} + '?title=' + ${movie.title}}">
+							<i th:if="${#lists.contains(review.getNamesOfDislikedBy, currentUser)}" 		style="color:red;" class="fas fa-thumbs-down fa-lg"></i>						
+							<i th:if="!${#lists.contains(review.getNamesOfDislikedBy, currentUser)}" 		style="color:black;" class="far fa-thumbs-down fa-lg"></i>
+						</a> 
+						<span style="margin-right:30px;" th:text="${review.dislikedBy.size}"></span>
+				
 					
-					<a th:href="@{'/clickhaha/' + ${review.id} + '?title=' + ${movie.title}}"><i style="color:black;" class="far fa-laugh fa-lg"></i></a> 
-					<span style="margin-right:30px;" th:text="${review.hahadBy.size}"></span>
-					
-					
-					
-					
-					
-					<a href="/"><i style="color:blue;" class="fas fa-thumbs-up fa-lg"></i></a> 
-					<a href="/"><i style="color:red;" class="fas fa-thumbs-down fa-lg"></i></a> 
-					<a href="/"><i style="color:orange;" class="fas fa-laugh fa-lg"></i></a> 
-				</div> 
+						<a style="text-decoration: none;" th:href="@{'/clickhaha/' + ${review.id} + '?title=' + ${movie.title}}">
+							<i th:if="${#lists.contains(review.getNamesOfHahadBy, currentUser)}" 		style="color:orange;" class="fas fa-laugh fa-lg"></i>						
+							<i th:if="!${#lists.contains(review.getNamesOfHahadBy, currentUser)}"  		style="color:black;" class="far fa-laugh fa-lg"></i>
+						</a> 
+						<span style="margin-right:30px;" th:text="${review.hahadBy.size}"></span>
+				</div> 	
 			</div>
 		</div>
-		
 	</body>
 </html>
-
-
-
-
-
 
 
 

@@ -119,6 +119,37 @@ public class Review {
 	public void setHahadBy(List<User> hahadBy) {
 		this.hahadBy = hahadBy;
 	}
+	
+	public List<String> getNamesOfLikedBy(){
+		List<String> names = new ArrayList<>();
+		
+		for (User user : this.getLikedBy()) {
+			names.add(user.getUsername());
+		}
+		
+		return names;
+	}
+
+	public List<String> getNamesOfDislikedBy(){
+		List<String> names = new ArrayList<>();
+		
+		for (User user : this.getDislikedBy()) {
+			names.add(user.getUsername());
+		}
+		
+		return names;
+	}
+	
+
+	public List<String> getNamesOfHahadBy(){
+		List<String> names = new ArrayList<>();
+		
+		for (User user : this.getHahadBy()) {
+			names.add(user.getUsername());
+		}
+		
+		return names;
+	}
 
 	@Override
 	public String toString() {
@@ -126,5 +157,7 @@ public class Review {
 				+ ", user=" + user + ", likedBy=" + likedBy + ", dislikedBy=" + dislikedBy + ", hahadBy=" + hahadBy
 				+ "]";
 	}
+	
+	
 	
 }
