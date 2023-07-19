@@ -16,8 +16,13 @@ import com.fdmgroup.springboot.Repository.UserRepository;
 public class MovieService {
 	@Autowired
 	MovieRepository movieRepository;
+	
 	@Autowired
 	UserRepository userRepository;
+	
+	
+	
+	
 	
 	//Create
 	public Movie addMovie(Movie movie) {
@@ -76,7 +81,8 @@ public class MovieService {
 		movieRepository.save(movie);
 	}
 	
-	public void addWatchlist(Movie queryMovie, User user) {
+	//Add a movie to watchlist
+	public void addMovieToWatchlist(Movie queryMovie, User user) {
 		Movie movie = movieRepository.findById(queryMovie.getTitle()).get();
 
 		List<User> watchList = new ArrayList<>();
@@ -103,6 +109,7 @@ public class MovieService {
 		movieRepository.save(movie);
 	}
 	
+	//A movie has a list of users who have watchlisted this movie. Delete a user from this list
 	public void deleteUserFromWatchlisted(String userName, String movieTitle) {		
 		Movie movie = movieRepository.findById(movieTitle).get();
 		User user = userRepository.findById(userName).get();
@@ -111,24 +118,4 @@ public class MovieService {
 
 		movieRepository.save(movie);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-
-	
-
-
-	
-
 }

@@ -32,7 +32,22 @@ class MovieServiceTest {
 	@Autowired
 	UserRepository userRepository;
 	
-
+	
+	
+	
+	
+	
+	
+//	User user = new User("test", "testpw");
+//	
+//	Movie movie = new Movie("title", 2016, "genre", 9);
+//	Movie movie2 = new Movie("title2", 2010, "genre", 5);
+//	List<Movie> favList = new ArrayList<>();
+//	favList.add(movie);
+//	favList.add(movie2);
+	
+	
+	
 	
 
 	@BeforeEach
@@ -143,7 +158,7 @@ class MovieServiceTest {
 		userRepository.save(user);
 		movieRepository.save(movie);
 		
-		movieService.addWatchlist(movie, user);
+		movieService.addMovieToWatchlist(movie, user);
 		
 		Movie updatedMovie = movieRepository.findById("title").get();
 		

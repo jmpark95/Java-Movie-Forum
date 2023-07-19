@@ -140,7 +140,6 @@ public class Review {
 		return names;
 	}
 	
-
 	public List<String> getNamesOfHahadBy(){
 		List<String> names = new ArrayList<>();
 		
@@ -157,7 +156,4 @@ public class Review {
 				+ ", user=" + user + ", likedBy=" + likedBy + ", dislikedBy=" + dislikedBy + ", hahadBy=" + hahadBy
 				+ "]";
 	}
-	
-	
-	
 }

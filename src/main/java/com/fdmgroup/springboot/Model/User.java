@@ -98,14 +98,4 @@ public class User {
 				&& Objects.equals(reviews, other.reviews) && Objects.equals(username, other.username)
 				&& Objects.equals(watchlist, other.watchlist);
 	}
-
-
-
-
-
-	
-	
-
-	
-
 }

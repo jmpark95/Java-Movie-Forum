@@ -28,10 +28,10 @@ class WatchlistControllerTest {
 	WatchlistController watchlistController;
 	
 	@MockBean
-	UserService userService;
+	UserService mockUserService;
 	
 	@MockBean
-	MovieService movieService;
+	MovieService mockMovieService;
 
 	@Mock
 	MockHttpSession mockSession;
@@ -39,18 +39,50 @@ class WatchlistControllerTest {
 	@Mock
 	Model mockModel;
 	
+	@Mock
+	User mockUser;
+	
+	
+		
 	
 	
 	@Test
-	void POST_add_favourite() {
-		Movie movie = new Movie("title", 2016, "genre", 9);
-		User user = new User("test", "testpw");
-		
-		when(mockSession.getAttribute("user")).thenReturn(user);
+	void get_watchlist() {
+		when(mockSession.getAttribute("user")).thenReturn(mockUser);
 
-		assertEquals("redirect:/mainpage", watchlistController.addWatchlist("title", mockSession));
+		watchlistController.getWatchlist(mockSession, mockModel);
 		
-		verify(movieService, times(1)).getMovie("title");
+		verify(mockUserService, times(1)).getWatchList(mockUser.getUsername());
+		
+		assertEquals("watchlist", watchlistController.getWatchlist(mockSession, mockModel));
+	}
+	
+	@Test
+	void add_to_watchlist() {
+		Movie movie = new Movie();
+		when(mockSession.getAttribute("user")).thenReturn(mockUser);
+		when(mockMovieService.getMovie("Avatar")).thenReturn(movie);
+		
+		watchlistController.addWatchlist("Avatar", mockSession);
+		
+		verify(mockMovieService, times(1)).getMovie("Avatar");
+		
+		verify(mockMovieService, times(1)).addMovieToWatchlist(movie, mockUser);
+		
+		assertEquals("redirect:/mainpage", watchlistController.addWatchlist("Avatar", mockSession));
+	}
+	
+	@Test
+	void delete_watchlist() {
+		when(mockSession.getAttribute("user")).thenReturn(mockUser);
+		
+		watchlistController.deleteWatchlist(mockSession, "Avatar");
+		
+		verify(mockMovieService, times(1)).deleteUserFromWatchlisted(mockUser.getUsername(), "Avatar");
+		
+		assertEquals("redirect:/watchlist", watchlistController.deleteWatchlist(mockSession, "Avatar"));
+
+
 	}
 
 

@@ -3,34 +3,34 @@ package com.fdmgroup.springboot.Controller;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.ui.Model;
 
 import com.fdmgroup.springboot.Model.Movie;
+import com.fdmgroup.springboot.Model.User;
+import com.fdmgroup.springboot.Repository.UserRepository;
 import com.fdmgroup.springboot.Service.MovieService;
 import com.fdmgroup.springboot.Service.ReviewService;
 
-@WebMvcTest(MovieController.class)
+@SpringBootTest
 class MovieControllerTest {	
-	@Autowired
-	MockMvc mockMvc;
-	
 	@Autowired
 	MovieController movieController;
 	
-	@Autowired
-	ReviewService reviewService;
+	@MockBean
+	ReviewService mockReviewService;
+	
+	@MockBean
+	UserRepository mockUserRepository;
 	
 	@MockBean
 	MovieService mockMovieService;
@@ -42,6 +42,9 @@ class MovieControllerTest {
 	Model mockModel;
 	
 	
+	
+	
+	
 	@Test
 	void GET_main_page() {
 		movieController.getMainPage(mockModel);
@@ -51,10 +54,7 @@ class MovieControllerTest {
 	
 	@Test
 	void GET_add_movie_page() throws Exception {
-		mockMvc.perform(get("/addmovie"))
-		.andExpect(status().isOk())
-		.andExpect(model().attributeExists("movie"))
-		.andExpect(view().name("addmovie"));
+		assertEquals("addmovie", movieController.getAddMoviePage(mockModel));
 	}
 	
 	@Test
@@ -70,13 +70,38 @@ class MovieControllerTest {
 	
 	@Test
 	void GET_single_movie_page() {
+		User mockUser = new User("test", "test");
+		
+		when(mockSession.getAttribute("user")).thenReturn(mockUser);
+		when(mockUserRepository.findById("test")).thenReturn(Optional.of(mockUser));
+		
 		movieController.getSingleMoviePage("Avatar", mockModel, mockSession);
 		
-		verify(mockMovieService, times(1)).getMovie("Avatar");
+		verify(mockMovieService).getMovie("Avatar");
+		
+		verify(mockReviewService).getReviewsByMovie("Avatar");
+		
+		assertEquals("singlemovie", movieController.getSingleMoviePage("Avatar", mockModel, mockSession));
 	}
 	
 
-
+	
+	
+//	@GetMapping("/movie/{title}")
+//	public String getSingleMoviePage(@PathVariable String title, Model model, HttpSession session) {
+//		Movie result = movieService.getMovie(title);
+//		List<Review> allReviews = reviewService.getReviewsByMovie(title);
+//		User sessionUser = (User) session.getAttribute("user");
+//		User currentUser = userRepository.findById(sessionUser.getUsername()).get();
+//		
+//		model.addAttribute("movie", result);
+//		model.addAttribute("reviews", allReviews);
+//		model.addAttribute("review", new Review());
+//		
+//		model.addAttribute("currentUser", currentUser.getUsername());
+//
+//		return "singlemovie";
+//	}
 	
 	
 	
@@ -85,22 +110,4 @@ class MovieControllerTest {
 	
 	
 	
-	
-	
-
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

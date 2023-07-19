@@ -16,9 +16,14 @@ import jakarta.servlet.http.HttpSession;
 public class RegisterController {
 	@Autowired
 	UserService userService;
+	
 	@Autowired
 	UserRepository userRepository;
 
+	
+	
+	
+	
 	@GetMapping("/register")
 	public String getRegisterPage(Model model) {
 		model.addAttribute("error", "none");

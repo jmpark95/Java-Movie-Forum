@@ -1,13 +1,11 @@
 package com.fdmgroup.springboot.Controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +25,10 @@ public class WatchlistController {
 	@Autowired
 	MovieService movieService;
 	
+	
+	
+	
+	
 	@GetMapping("/watchlist")
 	public String getWatchlist(HttpSession session, Model model) {
 		User sessionUser = (User) session.getAttribute("user");
@@ -44,7 +46,7 @@ public class WatchlistController {
 		User sessionUser = (User) session.getAttribute("user");
 		Movie movie = movieService.getMovie(title);
 
-		movieService.addWatchlist(movie, sessionUser);
+		movieService.addMovieToWatchlist(movie, sessionUser);
 		
 		return "redirect:/mainpage";
 	}

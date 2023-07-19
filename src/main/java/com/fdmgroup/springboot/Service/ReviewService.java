@@ -16,10 +16,15 @@ import com.fdmgroup.springboot.Repository.UserRepository;
 public class ReviewService {
 	@Autowired
 	ReviewRepository reviewRepository;
+	
 	@Autowired
 	MovieRepository movieRepository;
+	
 	@Autowired
 	UserRepository userRepository;
+	
+	
+	
 	
 	//Create
 	public Review addReview(Review review, Movie movie) {
@@ -35,8 +40,6 @@ public class ReviewService {
 		return reviewRepository.findByMovieTitle(movieTitle);
 	}
 	
-
-
 	public void clickLike(int id, User user) {
 		Review review = reviewRepository.findById(id).get();
 		
@@ -108,12 +111,4 @@ public class ReviewService {
 			reviewRepository.save(review);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }

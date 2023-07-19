@@ -20,6 +20,10 @@ public class UserService {
 	
 	@Autowired
 	MovieRepository movieRepository;
+	
+	
+	
+	
 
 	// Create
 	public User addUser(User user) {
@@ -63,37 +67,5 @@ public class UserService {
 
 		return user.getWatchlist();
 	}
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-
-
-	
-	
-	
-	
-
-//	
-//	public List<Movie> getFavouritesByUsername(HttpSession session) {
-//		User sessionUser = (User) session.getAttribute("user");
-//
-//		Optional<User> user = userRepository.findById(sessionUser.getUsername());
-//        
-//        if (user.isPresent()) {
-//        	return user.get().getFavourites();
-//        } else {
-//            return null;
-//        }
-//	}
 
 }

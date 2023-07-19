@@ -24,16 +24,24 @@ import jakarta.servlet.http.HttpSession;
 class RegisterControllerTest {
 	@Autowired
 	MockMvc mockMvc;
+	
 	@Autowired
 	RegisterController registerController;
+	
 	@MockBean
 	UserService userService;
+	
 	@MockBean
 	UserRepository userRepository;
+	
 	@Mock
 	Model model;
+	
 	@Mock
 	HttpSession session;
+	
+	
+	
 	
 	
 

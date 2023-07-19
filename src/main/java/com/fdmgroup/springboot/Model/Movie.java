@@ -50,13 +50,13 @@ public class Movie {
 	@ElementCollection
 	private List<Double> ratingHistory = new ArrayList<>();
 	
-	@Column(name = "DIRECTOR", nullable = false)
+	@Column(name = "DIRECTOR")
 	private String director;
 	
-	@Column(name = "ACTORS", nullable = false)
+	@Column(name = "ACTORS")
 	private String actors;
 	
-	@Column(name = "PLOT", nullable = false)
+	@Column(name = "PLOT")
 	private String plot;
 
 
@@ -75,14 +75,21 @@ public class Movie {
 		this.rating = rating;
 	}
 
-	public Movie(String title, int releaseYear, String genre, double rating, List<User> favouritedBy, List<User> watchlistedBy) {
+	public Movie(String title, int releaseYear, String genre, List<User> favouritedBy, List<User> watchlistedBy,
+			List<Review> reviews, double rating, List<Double> ratingHistory, String director, String actors,
+			String plot) {
 		super();
 		this.title = title;
 		this.releaseYear = releaseYear;
 		this.genre = genre;
-		this.rating = rating;
 		this.favouritedBy = favouritedBy;
 		this.watchlistedBy = watchlistedBy;
+		this.reviews = reviews;
+		this.rating = rating;
+		this.ratingHistory = ratingHistory;
+		this.director = director;
+		this.actors = actors;
+		this.plot = plot;
 	}
 
 	public String getTitle() {
@@ -114,7 +121,6 @@ public class Movie {
 	}
 
 	public void setRating(double rating) {
-		//this.rating = rating;
 	    this.ratingHistory.add(rating);
 	    calculateAverageRating();
 	}
@@ -151,12 +157,7 @@ public class Movie {
 	public void setRatingHistory(List<Double> ratingHistory) {
 		this.ratingHistory = ratingHistory;
 	}
-	
-//	public void setRatingHistory(Double rating) {
-//		this.ratingHistory.add(rating);
-//	}
-	
-	
+
 	public String getDirector() {
 		return director;
 	}
@@ -181,9 +182,6 @@ public class Movie {
 		this.plot = plot;
 	}
 	
-
-
-
 	private void calculateAverageRating() {
 	    double sum = 0;
 	    for (Double rating : ratingHistory) {
@@ -196,12 +194,10 @@ public class Movie {
 	    }
 	}
 
-
 	private double roundToOneDecimal(Double value) {
 		DecimalFormat numberFormat = new DecimalFormat("#.0");
 		
 		return Double.parseDouble(numberFormat.format(value));
-
 	}
 
 	@Override
