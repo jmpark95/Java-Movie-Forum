@@ -70,6 +70,19 @@ public class ReviewController {
 		
 		return "redirect:/movie/" + movieTitle + "#reviews";
 	}
+	
+	@PostMapping("/editreview/{id}")
+	public String editReview(@PathVariable int id, @ModelAttribute Review editreview) {
+		reviewService.editReview(id, editreview.getReviewContent(), editreview.getRating());
+		
+		return "redirect:/mainpage";
+	}
+	
+	
+	
+	
+	
+	
 }
 
 

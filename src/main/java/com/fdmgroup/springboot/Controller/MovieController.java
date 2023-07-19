@@ -74,8 +74,8 @@ public class MovieController {
 		model.addAttribute("movie", result);
 		model.addAttribute("reviews", allReviews);
 		model.addAttribute("review", new Review());
-		
 		model.addAttribute("currentUser", currentUser.getUsername());
+		model.addAttribute("editreview", new Review());
 
 		return "singlemovie";
 	}

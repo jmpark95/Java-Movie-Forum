@@ -111,4 +111,21 @@ public class ReviewService {
 			reviewRepository.save(review);
 		}
 	}
+	
+	public void editReview(int reviewId, String updatedReviewContent, double updatedRating) {
+		Review review = reviewRepository.findById(reviewId).get();
+		
+		review.setReviewContent(updatedReviewContent);
+		review.setRating(updatedRating);
+		
+		reviewRepository.save(review);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -114,6 +114,21 @@ class ReviewServiceTest {
 		assertEquals(testLikedList.toString(), savedReview.getLikedBy().toString());
 	}
 	
+	@Test
+	void editing_existing_review() {
+		Review oldReview = new Review("this is the old comment", 4.0);
+		
+		Review savedReview = reviewRepository.save(oldReview);
+
+		reviewService.editReview(savedReview.getId(), "this is the new comment", 9.0);
+		
+		Review updatedReview = reviewRepository.findById(savedReview.getId()).get();
+		
+		assertEquals("this is the new comment", updatedReview.getReviewContent());
+		assertEquals(9.0, updatedReview.getRating());
+
+	}
+	
 	
 	
 	
