@@ -66,11 +66,12 @@
 				</table>
 		
 	
-		
-		
-		
-		
-		
+	
+	
+	
+	
+	
+
 		<div style="text-align: center; padding-top: 100px; padding-bottom:100px;">
 			<h3>Leave a review</h3>
 			<form th:action="@{'/movie/' + ${movie.title}}" th:object="${review}" method="POST">
@@ -85,15 +86,34 @@
 		
 		
 		
+		
+		
+		
 			
 		<div style="padding-bottom: 300px;">
 			<h1 style="padding-left:300px;" id="reviews">All reviews</h1>
+			
+			<div style="position: relative; margin:auto; width: 70%; border-top: 1px solid; border-bottom: 1px solid; padding-bottom:30px; padding-top:30px" th:each="review : ${reviews}">	
+			
 
-			<div style="margin:auto; width: 70%; border-top: 1px solid; border-bottom: 1px solid; padding-bottom:30px; padding-top:30px" th:each="review : ${reviews}">	
-				<div style="padding-bottom: 15px"><h3 style="display:inline;">Review by: </h3> <h3 style="display:inline" th:text="${review.user.username}"></h3></div>
-				<div style="padding-bottom: 15px" th:text="${review.reviewContent}"></div>
-				<span>Rates this movie: </span><span th:text="${review.rating}"></span>
+				<!------------------- Review by: +Button ------------------->
+				<div style="padding-bottom: 15px">
+					<h3 style="display:inline;">Review by: </h3> <h3 style="display:inline" th:text="${review.user.username}"></h3> 
+					<button style="cursor:pointer; margin-bottom: 0; margin-top:10px;   background-color: transparent; padding: 3px 10px; border-width: 1px; border-radius: 6px; margin-left:10px" th:id="'editBtn' + ${review.id}" th:onclick="'toggle(\'' + ${review.id} + '\')'" th:if="${review.user.username == session.user.username}"><i class="fas fa-edit"></i></button>
+				</div>
 				
+				
+				<!------------------- Comment ------------------->
+				<i><div th:id="'commentreview' + ${review.id}" style="visibility: visible; padding-bottom: 15px" th:text="${review.reviewContent}"></div></i>
+				
+				
+				
+				<!------------------- User rates this movie: __/10 ------------------->
+				<span th:id="'ratereview' + ${review.id}" style="visibility: visible;">Rates this movie: <span th:text="${review.rating}"></span> </span> 
+				
+				
+				
+				<!------------------- Reactions------------------->
 				<div style="padding-top:20px;" >
 						<a style="text-decoration: none;" th:href="@{'/clicklike/' + ${review.id} + '?title=' + ${movie.title}}" >
 							<i th:if="${#lists.contains(review.getNamesOfLikedBy, currentUser)}"		style="color:DodgerBlue;" class="fas fa-thumbs-up fa-lg"></i>
@@ -116,18 +136,43 @@
 						<span style="margin-right:30px;" th:text="${review.hahadBy.size}"></span>
 						
 						
-						<div th:if="${review.user.username == session.user.username}">
-							<form th:action="@{'/editreview/' + ${review.id}}" th:object="${editreview}" method="POST">
-								<input type="text" th:field="*{reviewContent}"/>
-								<input type="number" th:field="*{rating}"/>
-								<input type="submit" value="Edit"/>
-							</form>						
-						</div>	
+						
+						<div th:id="'formreview' + ${review.id}" th:if="${review.user.username == session.user.username}" style="display:none; position: absolute; top: 70px;">
+							<form th:action="@{'/editreview/' + ${movie.title} + '/' + ${review.id}}" th:object="${editreview}" method="POST">
+								<input style="display:block; margin-bottom: 10px;" type="text" th:field="*{reviewContent}"/>
+								<input style="width:40px; display:inline-block;" type="number" th:field="*{rating}"/>
+								<input style="display:inline; cursor:pointer; margin-bottom: 0; margin-top:10px;   background-color: transparent; padding: 3px 10px; border-width: 1px; border-radius: 6px; margin-left:10px" type="submit" value="Sumbit"/>
+							</form>										
+						</div>
 				</div> 
-				
-				
 			</div>
 		</div>
+
+		  <script>
+		  function toggle(reviewId) {
+			    const form = document.getElementById('formreview' + reviewId);
+			    if (form.style.display === 'none') {
+			      form.style.display = 'block';
+			    } else {
+			      form.style.display = 'none';
+			    }
+			    
+			    const comment = document.getElementById('commentreview' + reviewId);
+			    if (comment.style.visibility === 'hidden') {
+			    	comment.style.visibility = 'visible';
+				    } else {
+				    	comment.style.visibility = 'hidden';
+				    }
+			    
+			    const rating = document.getElementById('ratereview' + reviewId);
+			    if (rating.style.visibility === 'hidden') {
+			    	rating.style.visibility = 'visible';
+				    } else {
+				    	rating.style.visibility = 'hidden';
+				    }
+
+			  }
+   		 </script>
 	</body>
 </html>
 

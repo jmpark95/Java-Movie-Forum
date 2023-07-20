@@ -41,6 +41,7 @@ public class ReviewController {
 		
 		reviewService.addReview(review, movie);
 		
+		
 		return "redirect:/movie/{title}";
 	}
 	
@@ -71,11 +72,11 @@ public class ReviewController {
 		return "redirect:/movie/" + movieTitle + "#reviews";
 	}
 	
-	@PostMapping("/editreview/{id}")
-	public String editReview(@PathVariable int id, @ModelAttribute Review editreview) {
+	@PostMapping("/editreview/{movieTitle}/{id}")
+	public String editReview(@PathVariable int id, @PathVariable String movieTitle, @ModelAttribute Review editreview) {
 		reviewService.editReview(id, editreview.getReviewContent(), editreview.getRating());
 		
-		return "redirect:/mainpage";
+		return "redirect:/movie/" + movieTitle + "#reviews";
 	}
 	
 	
