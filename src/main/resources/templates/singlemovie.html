@@ -100,8 +100,18 @@
 				<div style="padding-bottom: 15px">
 					<h3 style="display:inline;">Review by: </h3> <h3 style="display:inline" th:text="${review.user.username}"></h3> 
 					<button style="cursor:pointer; margin-bottom: 0; margin-top:10px;   background-color: transparent; padding: 3px 10px; border-width: 1px; border-radius: 6px; margin-left:10px" th:id="'editBtn' + ${review.id}" th:onclick="'toggle(\'' + ${review.id} + '\')'" th:if="${review.user.username == session.user.username}"><i class="fas fa-edit"></i></button>
+					<a th:href="@{'/deletereview/' + ${review.id} + '/' + ${movie.title}}"  th:if="${review.user.username == session.user.username}" 
+					onclick="if (confirm('Are you sure you want to delete this review?')){return true;}else{event.stopPropagation(); event.preventDefault();};">
+					<button style="cursor:pointer; margin-bottom: 0; margin-top:10px;   background-color: transparent; padding: 3px 10px; border-width: 1px; border-radius: 6px; margin-left:10px">
+					<i class="fa-regular fa-trash-can"></i>
+					</button>
+					</a>
+					
+					
 				</div>
 				
+				<!-- th:onclick="'toggle(\'' + ${review.id} + '\')'"
+				th:href="@{'/deletereview/' + ${review.id} + '/' + ${movie.title}}" -->
 				
 				<!------------------- Comment ------------------->
 				<i><div th:id="'commentreview' + ${review.id}" style="visibility: visible; padding-bottom: 15px" th:text="${review.reviewContent}"></div></i>
@@ -170,8 +180,17 @@
 				    } else {
 				    	rating.style.visibility = 'hidden';
 				    }
-
 			  }
+		  
+		  function confirmdelete(url) {
+			  if (confirm("Are you sure you want to delete this review?") == true) {
+				  window.location.href='localhost:8080' + url
+			  } else {
+				  window.location.href = 'localhost:8080'
+			  }
+
+		  }
+		  
    		 </script>
 	</body>
 </html>

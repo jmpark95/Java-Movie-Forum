@@ -42,7 +42,7 @@ public class ReviewController {
 		reviewService.addReview(review, movie);
 		
 		
-		return "redirect:/movie/{title}";
+		return "redirect:/movie/{title}" + "#reviews";
 	}
 	
 	@GetMapping("/clicklike/{id}")
@@ -79,7 +79,12 @@ public class ReviewController {
 		return "redirect:/movie/" + movieTitle + "#reviews";
 	}
 	
-	
+	@GetMapping("/deletereview/{reviewId}/{movieTitle}")
+	public String deleteReview(@PathVariable int reviewId, @PathVariable String movieTitle) {
+		reviewService.deleteReview(reviewId);
+		
+		return "redirect:/movie/" + movieTitle + "#reviews";
+	}
 	
 	
 	

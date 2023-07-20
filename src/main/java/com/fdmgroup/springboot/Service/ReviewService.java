@@ -122,7 +122,9 @@ public class ReviewService {
 	}
 	
 	
-	
+	public void deleteReview(int reviewId) {
+		reviewRepository.deleteById(reviewId);
+	}
 	
 	
 	

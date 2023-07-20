@@ -1,6 +1,8 @@
 package com.fdmgroup.springboot.Service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +128,17 @@ class ReviewServiceTest {
 		
 		assertEquals("this is the new comment", updatedReview.getReviewContent());
 		assertEquals(9.0, updatedReview.getRating());
-
+	}
+	
+	@Test
+	void delete_review() {
+		Review review = new Review("review comment", 4.0);
+		
+		Review savedReview = reviewRepository.save(review);
+		
+		reviewService.deleteReview(savedReview.getId());
+		
+		assertTrue(reviewRepository.findById(savedReview.getId()).isEmpty());
 	}
 	
 	
