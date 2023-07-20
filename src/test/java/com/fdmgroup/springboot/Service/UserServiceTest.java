@@ -129,4 +129,33 @@ class UserServiceTest {
 		
 		assertEquals(watchList.toString(), userService.getWatchList("Min").toString());
 	}
+	
+	@Test
+	void add_user_to_following_list() {
+		User user = new User("Min", "password");
+		User userToFollow = new User("MinWantsToFollowThisUser", "password");
+		
+		userRepository.save(user);
+		userRepository.save(userToFollow);
+		
+		userService.addFollowing("Min", userToFollow);
+		
+		assertEquals(userRepository.findById("MinWantsToFollowThisUser").get().toString(), userRepository.findById("Min").get().getFollowing().get(0).toString());
+		
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

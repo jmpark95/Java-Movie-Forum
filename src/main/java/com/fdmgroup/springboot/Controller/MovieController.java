@@ -43,7 +43,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/addmovie")
-	public String getAddMoviePage(Model model) {
+	public String getAddMoviePage(Model model) {	
 		model.addAttribute("movie", new Movie());
 		
 		return "addmovie";

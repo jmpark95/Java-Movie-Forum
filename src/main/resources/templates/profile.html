@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>The Movie Forum</title>
+		<div th:insert="util :: font"></div>
+		<style>
+			.container {
+    		display: flex;
+    		  justify-content: space-between;
+    		text-align:center;
+			}
+			
+			.content {
+			    flex: 1;
+			    padding: 20px;
+			}
+			
+			.sidebar {
+			    background-color: #f0f0f0;
+			    padding: 20px;
+			    min-width: 200px;
+			}
+			
+			.sidebar ul {
+			    list-style: none;
+			    padding: 0;
+			}
+			
+			.sidebar li {
+			    margin-bottom: 10px;
+			}
+			
+			.sidebar a {
+			    text-decoration: none;
+			    color: #333;
+			    display: block;
+			}
+			
+			.sidebar a:hover {
+			    color: #666;
+			}
+			
+		</style>
+		
+		
+	</head>
+	
+	<div th:insert="util :: header"></div>
+	
+	
+	
+	
+	
+	
+	<body>
+		<div style="text-align: center; margin-top:100px;" th:unless="${usersname == sessionusername || #lists.contains(sessionuserdetails, usersname)}">
+			    <a th:object=${userprofile} th:href="'/follow/' + ${userprofile.username}"><button style="margin-top: 100px; cursor:pointer; margin-bottom: 0; 
+			       background-color: transparent; padding: 15px 30px; 
+			    border-width: 1px; border-radius: 6px; font-size:1.5rem;">Follow</button></a>   
+			    <h3 style="padding-top:200px;">Please follow this user if you would like to view their profile</h3>
+		</div>
+		
+
+
+	
+	
+			<div class="container" th:if="${usersname == sessionusername || #lists.contains(sessionuserdetails, usersname)}">
+
+					<div class="content" style="margin-top:150px;">
+	         	
+	            <div th:object=${userprofile}>
+					<h3>Username: </h3>
+					<div th:text="*{username}"></div>
+					
+					<div style="padding-bottom:60px;" ></div>
+					
+					<div style="padding-bottom:60px;">
+						<h3>Account created on:</h3>
+						<h3 th:if="!${usersname == sessionusername || #lists.contains(sessionuserdetails, usersname)}" th:text="${userprofile.username} + 's favourites: '"></h3>
+						<div th:text="${#strings.substring(userprofile.created_at, 0, 10)}"></div>
+					</div>
+					
+					<div style="padding-bottom:60px;">
+						<h3 th:if="${usersname == sessionusername}">Your favourites:</h3>
+						<h3 th:if="!${usersname == sessionusername}" th:text="${userprofile.username} + 's favourites: '"></h3>
+						<div th:each="movie : *{favourites}">	              
+		                		<div th:text="${movie.title}"></div>		                		                 
+		                </div>
+					</div>
+					
+	                
+	                <div style="padding-bottom:60px;">
+						<h3 th:if="${usersname == sessionusername}">Your watchlist:</h3>	                                
+		                <h3 th:if="!${usersname == sessionusername}" th:text="${userprofile.username} + 's watchlist: '"></h3>
+						<div th:each="movie : *{watchlist}">		                
+		                	<div th:text="${movie.title}"></div>		                                
+		                </div>
+	                </div>
+					
+					
+					<div style="padding-bottom:60px; width:50%; margin:auto;">	
+						<h3 th:if="${usersname == sessionusername}">Reviews you have made:</h3>			
+						<h3 th:if="!${usersname == sessionusername}" th:text="'Reviews ' + ${userprofile.username} + ' has made: '"></h3>
+		                <div style="padding-bottom:20px;" th:each="review : *{reviews}">		              
+		                		<div th:text="${review.movie.title}"></div>
+		                    	<div th:text="${review.reviewContent}"></div>
+		                   		<span>Likes: </span><span th:text="${review.likedBy.size()}"></span>
+		                  		<span>Dislikes: </span><span th:text="${review.dislikedBy.size()}"></span>
+		                  		<span>Haha: </span><span th:text="${review.hahadBy.size()}"></span>		                           
+		                </div>
+		            </div>
+	
+					<div style="padding-bottom:60px;">
+						<h3 th:if="${usersname == sessionusername}">You are currently following:</h3>
+						<h3 th:if="!${usersname == sessionusername}" th:text="${userprofile.username} + ' is currently following:'"></h3>
+		                <div>
+		                    <div th:each="followingUser : *{following}" th:text="${followingUser.username}"></div>
+		                </div>
+	                </div>
+	               
+	                
+	                <div style="padding-bottom:60px;">
+	                	<h3 th:if="${usersname == sessionusername}">Your followers:</h3>	                
+						<h3 th:if="!${usersname == sessionusername}" th:text="${userprofile.username} + 's followers: '"></h3>
+		                <div>
+		                    <div th:each="follower : *{followers}" th:text="${follower.username}"></div>
+		                </div>
+	                </div>			 
+		        </div>		
+			</div>
+	    </div>
+	
+	
+		
+		
+		
+		
+      
+        <div style="margin-top:200px; position: absolute;right: 0;top: 0;height: 100vh;" class="sidebar">
+        	<h1>All users</h1>
+            <ul th:each="user : ${allusers}">
+            	<li><a th:href="@{'/profile/' + ${user.username}}" th:text="${user.username}"></a></li>
+			</ul>
+        </div>
+	</body>
+</html>

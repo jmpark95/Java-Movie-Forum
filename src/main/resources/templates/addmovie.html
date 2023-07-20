@@ -10,7 +10,7 @@
 	<div th:insert="util :: header"></div>
 
 	<body>
-		<div style="width: 40%; margin:  auto; padding-top: 40px; padding-bottom: 40px; position: relative; top: 100px; padding-top: 10px; padding-bottom: 10px; border-style: SOLID; border-width: 1px; border-color: #F7F7F7; border-radius: 10px; background-color: #F7F7F7;" >
+		<div style=" width: 40%; margin: 100px auto; padding-top: 20px; padding-bottom: 40px; position: relative; top: 100px; padding-bottom: 10px; border-style: SOLID; border-width: 1px; border-color: #F7F7F7; border-radius: 10px; background-color: #F7F7F7;" >
 			<h1 style="text-align:center;">Add a movie</h1>
 			<form  th:action="@{/addmovie}" method="POST"  th:object="${movie}" style="margin: 0 auto; padding-top: 20px;">
 				<table style="margin: 0 auto;  width: 65%;  padding-bottom: 20px;">
@@ -21,7 +21,7 @@
 	
 					  <tr>
 						<td align="right">Year of Release :</td>
-						<td align="left"><input type="text" th:field="*{releaseYear}" required></td>
+						<td align="left"><input type="text" th:field="*{releaseYear}" value=" " required></td>
 					</tr>
 					
 					<tr>

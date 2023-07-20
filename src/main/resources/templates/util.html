@@ -2,9 +2,15 @@
 
 	
 
-	<label style="color: pink; font-size: 1.17em; margin: .83em 0; margin-left: 20%">Welcome <span th:text="${session.user.username}"></span></label>
-	<a style="color: pink; padding-top: 10px; font-size: 3em; margin: .67em 0; text-decoration:none; margin-left:400px" href="/mainpage">FDMDb</a>
+	<label style="color: pink; font-size: 1.17em; margin: .83em 0; margin-left: 20%"><a th:href="@{'/profile' +'/' + ${session.user.username}}"  style="color:pink; text-decoration: none;">Welcome, <span th:text="${session.user.username}"></span></a></label>
+	<a style="color: pink; padding-top: 10px; font-size: 3em; margin: .67em 0; text-decoration:none; margin-left:370px" href="/mainpage">FDMDb</a>
 	<a style="underline: none; color: pink; font-size: 1.17em; margin: .83em 0; margin-left: 20%" href="/logout">Logout</a>
+	
+	<div style="padding-top: 40px; text-align:center; margin-bottom: 30px; display:flex; justify-content:center; gap:50px;">
+		<div><a style=" color:black;	text-decoration: none; border: 1px solid; padding: 5px 20px; border-radius: 10px;" href="/favourites">Your favourites</a></div>
+	    <div><a style=" color:black;	text-decoration: none; border: 1px solid; padding: 5px 20px; border-radius: 10px;" href="/watchlist">Your watchlist</a></div>
+	    <div><a style=" color:black;	text-decoration: none; border: 1px solid; padding: 5px 20px; border-radius: 10px;" href="/addmovie">Add a movie</a></div>
+	</div>
 </div>
 
 
@@ -22,7 +28,3 @@
 
 
 
-
-<div th:fragment="footer" style="position: absolute; bottom: 0px;">
-	<p>Copyright 2023 Don's Examples .....</p>
-</div>

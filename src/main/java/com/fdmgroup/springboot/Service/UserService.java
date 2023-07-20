@@ -66,5 +66,20 @@ public class UserService {
 
 		return user.getWatchlist();
 	}
+	
+	public void addFollowing(String userName, User user) {
+		User foundUser = userRepository.findById(userName).get();
+		
+		foundUser.addFollowing(user);
+		
+		userRepository.save(foundUser);
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }
