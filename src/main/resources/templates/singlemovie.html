@@ -110,8 +110,6 @@
 					
 				</div>
 				
-				<!-- th:onclick="'toggle(\'' + ${review.id} + '\')'"
-				th:href="@{'/deletereview/' + ${review.id} + '/' + ${movie.title}}" -->
 				
 				<!------------------- Comment ------------------->
 				<i><div th:id="'commentreview' + ${review.id}" style="visibility: visible; padding-bottom: 15px" th:text="${review.reviewContent}"></div></i>
