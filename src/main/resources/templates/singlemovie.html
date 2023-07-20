@@ -31,11 +31,11 @@
 		</div>
 		
 		
-		<table th:object=${movie} style="margin: 0 auto; padding-bottom: 20px;">
+		<table th:object=${movie} style="width:700px; margin: 0 auto; padding-bottom: 20px;">
 					<h1 style="text-align:center; font-size:70px;" th:text="*{title}"></h1>
 	
 					<tr>
-						<td align="right"><h3>Year of Release:</h3></td>
+						<td style="width:300px;" align="right"><h3>Year of Release:</h3></td>
 						<td align="left"><div th:text="*{releaseYear}" ></td>
 					</tr>
 					
@@ -148,7 +148,7 @@
 						<div th:id="'formreview' + ${review.id}" th:if="${review.user.username == session.user.username}" style="display:none; position: absolute; top: 70px;">
 							<form th:action="@{'/editreview/' + ${movie.title} + '/' + ${review.id}}" th:object="${editreview}" method="POST">
 								<input style="display:block; margin-bottom: 10px;" type="text" th:field="*{reviewContent}"/>
-								<input style="width:40px; display:inline-block;" type="number" th:field="*{rating}"/>
+								<input style="width:40px; display:inline-block;" type="number" th:field="*{rating}" step="0.1"/>
 								<input style="display:inline; cursor:pointer; margin-bottom: 0; margin-top:10px;   background-color: transparent; padding: 3px 10px; border-width: 1px; border-radius: 6px; margin-left:10px" type="submit" value="Sumbit"/>
 							</form>										
 						</div>
