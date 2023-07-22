@@ -3,6 +3,8 @@ package com.fdmgroup.springboot.Service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +22,10 @@ public class UserService {
 	@Autowired
 	MovieRepository movieRepository;
 	
+    private static final Logger LOGGER = LogManager.getLogger(UserService.class);
+
 	
-	
-	
+	 
 
 	// Create
 	public User addUser(User user) {
@@ -72,14 +75,8 @@ public class UserService {
 		
 		foundUser.addFollowing(user);
 		
+		LOGGER.info(foundUser);
+
 		userRepository.save(foundUser);
 	}
-	
-	
-	
-	
-	
-	
-	
-
 }

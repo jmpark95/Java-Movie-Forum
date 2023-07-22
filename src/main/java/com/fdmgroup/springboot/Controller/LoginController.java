@@ -42,18 +42,14 @@ public class LoginController {
 	public String loginUser(User user, Model model, HttpSession session) {
 		User checkUser = userService.getUser(user.getUsername());
 		
-		//if username doesnt exist in the database
 		if (checkUser == null) {
 			model.addAttribute("error", "username doesnt exist");
-
 			return "login";
 		} 
-		//wrong password
 		else if (!user.getPassword().equals(checkUser.getPassword())) {
 			model.addAttribute("error", "wrong password");
 			return "login";
 		}
-		//only when user isn't null AND passwords match, allow onto mainPage
 		else {
 			session.setAttribute("user", checkUser);
 			return "redirect:/mainpage";

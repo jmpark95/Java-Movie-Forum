@@ -16,20 +16,19 @@
 
 	<body>
 		<div style="
-    margin-top: 80px;
+    margin-top: 180px;
     display: flex;
     justify-content: center;
-    gap: 50px;
-">
+    gap: 50px;">
 			<form th:action="@{'/movie/' + ${movie.title}} + '/addfavourite'" th:object="${movie}" method="POST">
-			    <input style="cursor:pointer; margin-bottom: 0;   background-color: transparent; padding:10px; border-width: 1px; border-radius: 6px" type="submit" value="Add to favourites" />
+				<button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"><i class="fa-regular fa-star fa-3x"></i></button>
 			</form>
 			
-			<form th:action="@{'/movie/' + ${movie.title}} + '/addwatchlist'" th:object="${movie}" method="POST">	    
-			    <input style="cursor:pointer; margin-bottom: 0;    background-color: transparent; padding:10px; border-width: 1px; border-radius: 6px" type="submit" value="Add to watchlist" />
+			<form th:action="@{'/movie/' + ${movie.title}} + '/addwatchlist'" th:object="${movie}" method="POST">	
+				<button style="background: none; color: inherit; border: none; padding: 0; font: inherit; cursor: pointer; outline: inherit;"><i class="fas fa-tasks fa-3x"></i></button>
 			</form>
 		</div>
-		
+
 		
 		<table th:object=${movie} style="width:700px; margin: 0 auto; padding-bottom: 20px;">
 					<h1 style="text-align:center; font-size:70px;" th:text="*{title}"></h1>

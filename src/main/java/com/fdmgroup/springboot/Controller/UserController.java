@@ -2,6 +2,8 @@ package com.fdmgroup.springboot.Controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,10 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+
 	
+	 
 	
 	@GetMapping("/profile/{username}")
 	public String getProfilePage(@PathVariable String username, Model model, HttpSession session) {
@@ -30,17 +35,15 @@ public class UserController {
 		User user = userService.getUser(username);
 		List<User> allUsers = userRepository.findAll();
 		User sessionUserDetails = userRepository.findById(sessionUser.getUsername()).get();
-		
-		
+				
 		model.addAttribute("userprofile", user);
 		model.addAttribute("usersname", user.getUsername());
 		model.addAttribute("allusers", allUsers);
 		model.addAttribute("sessionuserdetails", sessionUserDetails.getNamesOfFollowing());
 		model.addAttribute("sessionusername", sessionUser.getUsername());
 		
-		System.out.println(model);
+		LOGGER.info(model);
 
-		
 		return "profile";	
 	}
 	
@@ -55,8 +58,4 @@ public class UserController {
 		
 		return "redirect:/profile/" + username;
 	}
-	
-	
-	
-	
 }

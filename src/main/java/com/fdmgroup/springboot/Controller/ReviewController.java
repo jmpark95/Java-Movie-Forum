@@ -39,8 +39,7 @@ public class ReviewController {
 		review.setMovie(movie);
 		review.setUser(user);
 		
-		reviewService.addReview(review, movie);
-		
+		reviewService.addReview(review, movie);		
 		
 		return "redirect:/movie/{title}" + "#reviews";
 	}
@@ -85,10 +84,5 @@ public class ReviewController {
 		
 		return "redirect:/movie/" + movieTitle + "#reviews";
 	}
-	
-	
-	
-	
+
 }
-
-

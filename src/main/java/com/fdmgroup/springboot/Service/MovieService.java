@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +22,16 @@ public class MovieService {
 	@Autowired
 	UserRepository userRepository;
 	
-	
-	
-	
+    private static final Logger LOGGER = LogManager.getLogger(MovieService.class);
+
+	 
+    
 	
 	//Create
 	public Movie addMovie(Movie movie) {
 		boolean doesMovieAlreadyExist = movieRepository.existsByTitle(movie.getTitle());
+		
+		LOGGER.info(doesMovieAlreadyExist);
 		
 		if (!doesMovieAlreadyExist) {
 			movieRepository.save(movie);			
@@ -113,6 +118,9 @@ public class MovieService {
 	public void deleteUserFromWatchlisted(String userName, String movieTitle) {		
 		Movie movie = movieRepository.findById(movieTitle).get();
 		User user = userRepository.findById(userName).get();
+		
+		LOGGER.info(movie);
+		LOGGER.info(user);
 
 		movie.getWatchlistedBy().remove(user);
 

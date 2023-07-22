@@ -2,6 +2,8 @@ package com.fdmgroup.springboot.Service;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class ReviewService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+    private static final Logger LOGGER = LogManager.getLogger(ReviewService.class);
+
 	
 	
 	
@@ -46,6 +51,8 @@ public class ReviewService {
 	    User managedUser = userRepository.findById(user.getUsername()).get();
 		
 		boolean doesListAlreadyContainUser = review.getLikedBy().contains(managedUser);
+		
+		LOGGER.info(doesListAlreadyContainUser);
 				
 		if (doesListAlreadyContainUser) {
 			List<User> currentList = review.getLikedBy();
@@ -118,6 +125,8 @@ public class ReviewService {
 		review.setReviewContent(updatedReviewContent);
 		review.setRating(updatedRating);
 		
+		LOGGER.info(review);
+
 		reviewRepository.save(review);
 	}
 	
@@ -125,9 +134,5 @@ public class ReviewService {
 	public void deleteReview(int reviewId) {
 		reviewRepository.deleteById(reviewId);
 	}
-	
-	
-	
-	
-	
+
 }

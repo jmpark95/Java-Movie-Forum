@@ -2,6 +2,8 @@ package com.fdmgroup.springboot.Controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,9 @@ public class MovieController {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+    private static final Logger LOGGER = LogManager.getLogger(MovieController.class);
+ 
 	
 	
 	
@@ -60,6 +65,8 @@ public class MovieController {
 			model.addAttribute("message", "fail");
 			model.addAttribute("movie", new Movie());
 		}
+		
+		LOGGER.info(model);
 
 		return "addmovie";
 	}
@@ -76,6 +83,8 @@ public class MovieController {
 		model.addAttribute("review", new Review());
 		model.addAttribute("currentUser", currentUser.getUsername());
 		model.addAttribute("editreview", new Review());
+		
+		LOGGER.info(model);
 
 		return "singlemovie";
 	}

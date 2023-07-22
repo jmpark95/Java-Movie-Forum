@@ -32,7 +32,6 @@ public class WatchlistController {
 	@GetMapping("/watchlist")
 	public String getWatchlist(HttpSession session, Model model) {
 		User sessionUser = (User) session.getAttribute("user");
-
 		List<Movie> watchList = userService.getWatchList(sessionUser.getUsername());
 	
 		model.addAttribute("watchList", watchList);

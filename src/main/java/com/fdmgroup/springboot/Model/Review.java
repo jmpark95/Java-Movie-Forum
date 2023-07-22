@@ -30,7 +30,7 @@ public class Review {
 	@JoinColumn(name = "FK_TITLE")
 	private Movie movie;
 	
-	@ManyToOne  //(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
+	@ManyToOne
 	@JoinColumn(name = "FK_USERNAME")
 	private User user;
 	
@@ -43,12 +43,11 @@ public class Review {
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
 	private List<User> hahadBy = new ArrayList<>();
 
-
+ 
 	
 
 	public Review() {
 		super();
-
 	}
 
 	public Review(String reviewContent, double rating) {

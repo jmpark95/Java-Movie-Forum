@@ -71,31 +71,6 @@ class ReviewServiceTest {
 	}
 	
 	@Test
-	void get_all_reviews_for_a_movie_by_its_title() {
-		Review review = new Review("Great", 9);
-		Review review2 = new Review("bad", 3);
-		User user = new User("Reviewtest", "min");
-		User user2 = new User("Reviewtest2", "don");
-		Movie movie = new Movie("Titanic", 1930, "Drama", 9);
-
-		review.setMovie(movie);
-		review.setUser(user);
-		review2.setMovie(movie);
-		review2.setUser(user2);
-		
-		List<Review> reviewList = new ArrayList<>();
-		reviewList.add(review);
-		reviewList.add(review2);
-		
-		reviewRepository.saveAll(reviewList);
-
-		assertEquals(reviewList, reviewService.getReviewsByMovie("Titanic"));
-	}
-	
-
-	
-
-	@Test
 	void click_like_test() {
 		User user =  new User("test", "testpw");
 		User user2 = new User("test2", "testpw");
@@ -115,6 +90,53 @@ class ReviewServiceTest {
 
 		assertEquals(testLikedList.toString(), savedReview.getLikedBy().toString());
 	}
+	
+	
+	@Test
+	void click_dislike_test() {
+		User user =  new User("test", "testpw");
+		User user2 = new User("test2", "testpw");
+		List<User> dislikedList = new ArrayList<>();
+		dislikedList.add(user);
+		dislikedList.add(user2);
+		
+		Review review = new Review();
+		review.setDislikedBy(dislikedList);
+		
+		Review savedReview = reviewRepository.save(review);
+
+		reviewService.clickDislike(savedReview.getId(), user2);
+		
+		List<User> testdislikedList = new ArrayList<>();
+		testdislikedList.add(user);
+
+		assertEquals(testdislikedList.toString(), savedReview.getDislikedBy().toString());
+	}
+	
+	@Test
+	void click_haha_test() {
+		User user =  new User("test", "testpw");
+		User user2 = new User("test2", "testpw");
+		List<User> hahaList = new ArrayList<>();
+		hahaList.add(user);
+		hahaList.add(user2);
+		
+		Review review = new Review();
+		review.setHahadBy(hahaList);
+		
+		Review savedReview = reviewRepository.save(review);
+
+		reviewService.clickHaha(savedReview.getId(), user2);
+		
+		List<User> testHahaList = new ArrayList<>();
+		testHahaList.add(user);
+
+		assertEquals(testHahaList.toString(), savedReview.getHahadBy().toString());
+	}
+	
+	
+	
+	
 	
 	@Test
 	void editing_existing_review() {

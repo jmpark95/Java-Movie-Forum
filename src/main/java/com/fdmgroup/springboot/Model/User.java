@@ -36,8 +36,6 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Review> reviews = new ArrayList<>();
 	
-	
-	
 	@ManyToMany
 	private List<User> following = new ArrayList<>();
 	
@@ -45,7 +43,7 @@ public class User {
 	private List<User> followers = new ArrayList<>();
 	
 	
-	
+	 
 	
 
 	
@@ -100,11 +98,6 @@ public class User {
 		this.watchlist = watchlist;
 	}
 	
-	
-	
-	
-	
-	
 	public List<Review> getReviews() {
 		return reviews;
 	}
@@ -134,8 +127,6 @@ public class User {
 		 user.getFollowers().add(this);
     }
 	
-	
-
 	public Date getCreated_at() {
 		return created_at;
 	}
@@ -143,9 +134,6 @@ public class User {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-	
-	
-	
 	
 	public List<String> getNamesOfFollowing(){
 		List<String> names = new ArrayList<>();
@@ -157,10 +145,6 @@ public class User {
 		return names;
 	}
 	
-	
-	
-	
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(favourites, followers, following, password, reviews, username, watchlist);

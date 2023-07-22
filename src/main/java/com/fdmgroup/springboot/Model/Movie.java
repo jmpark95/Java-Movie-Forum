@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Movie {
+public class Movie { 
 	@Id
 	@Column(name = "TITLE", unique = true, nullable = false)
 	private String title;
@@ -40,7 +40,7 @@ public class Movie {
 			inverseJoinColumns = @JoinColumn(name = "FK_USERNAME_WATCHLIST"))
 	private List<User> watchlistedBy = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)  //, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH}
+	@OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
 	private List<Review> reviews = new ArrayList<>();
 	
 	@Column(name = "AVERAGE RATING")
@@ -56,7 +56,7 @@ public class Movie {
 	@Column(name = "ACTORS")
 	private String actors;
 	
-	@Column(name = "PLOT")
+	@Column(name = "PLOT", length = 1000)
 	private String plot;
 
 
